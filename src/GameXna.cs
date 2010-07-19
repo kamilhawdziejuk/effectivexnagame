@@ -23,21 +23,29 @@ namespace GameXna
     public class GameXna : Microsoft.Xna.Framework.Game
     {
         private Camera camera = new Camera();
+        private WorldData worldData = new WorldData();
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private VertexPositionNormalTexture[] vertices;
-        private Texture2D texture;
 
-        private Matrix projection;
-        private Matrix view;
-        private Matrix world = Matrix.Identity;
+        global::GameXna.Figures.Triangle triangle;
+        global::GameXna.Figures.Rectangle rectangle;
+
+        Dictionary<BasicEffect, Figures.VerticesIndicesFigure> effects = new Dictionary<BasicEffect, Figures.VerticesIndicesFigure>();
+
+        private Texture2D texture;
+    
         private float rotationRate = 0;
+        private FPS fps;
 
         public GameXna()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+#if DEBUG
+            fps = new FPS(this);
+            Components.Add(fps);
+#endif
         }
 
         /// <summary>
@@ -49,40 +57,23 @@ namespace GameXna
         protected override void Initialize()
         {
             this.InitializeWorld();
-            this.InitializeVertices();
+
+            this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-1, 1, 0), new Vector3(1, -1, 0), new Vector3(-1, -1, 0));
+            this.rectangle = new global::GameXna.Figures.Rectangle(new Vector3(1.2f, -1, -1), new Vector3(1.5f, 1f, 1));
+
             base.Initialize();
         }
 
         private void InitializeWorld()
         {
-            Matrix.CreateLookAt(ref this.camera.cameraPosition, ref this.camera.cameraTarget, ref this.camera.cameraUpVector, out view);
+            this.worldData.World = Matrix.Identity;
+
+            Matrix.CreateLookAt(ref this.camera.cameraPosition, ref this.camera.cameraTarget, ref this.camera.cameraUpVector, 
+                out this.worldData.View);
 
             float aspectRatio = (float)graphics.GraphicsDevice.Viewport.Width /
             (float)graphics.GraphicsDevice.Viewport.Height;
-            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio,
-            0.0001f, 1000.0f, out projection);
-        }
-
-        private void InitializeVertices()
-        {
-            Vector3 position;
-            Vector2 textureCoordinates;
-            vertices = new VertexPositionNormalTexture[3];
-            //top left
-            position = new Vector3(-1, 1, 0);
-            textureCoordinates = new Vector2(0, 0);
-            vertices[0] = new VertexPositionNormalTexture(position, Vector3.Forward,
-            textureCoordinates);
-            //bottom right
-            position = new Vector3(1, -1, 0);
-            textureCoordinates = new Vector2(1, 1);
-            vertices[1] = new VertexPositionNormalTexture(position, Vector3.Forward,
-            textureCoordinates);
-            //bottom left
-            position = new Vector3(-1, -1, 0);
-            textureCoordinates = new Vector2(0, 1);
-            vertices[2] = new VertexPositionNormalTexture(position, Vector3.Forward,
-            textureCoordinates);
+            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio,  0.0001f, 1000.0f, out this.worldData.Projection);
         }
 
         /// <summary>
@@ -96,11 +87,11 @@ namespace GameXna
 
             // TODO: use this.Content to load your game content here
         }
+        
 
         protected override void LoadGraphicsContent(bool loadAllContent)
         {
             texture = Content.Load<Texture2D>("Textures\\obraz");
-            
         }
 
         /// <summary>
@@ -128,39 +119,54 @@ namespace GameXna
             base.Update(gameTime);
         }
 
+        private void InitializeEffect(BasicEffect effect)
+        {
+            effect.World = this.worldData.World;
+            effect.Projection = this.worldData.Projection;
+            effect.View = this.worldData.View;
+            effect.EnableDefaultLighting();
+            effect.TextureEnabled = true;
+            effect.Texture = this.texture;
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             graphics.GraphicsDevice.VertexDeclaration = new
                     VertexDeclaration(graphics.GraphicsDevice,
                     VertexPositionNormalTexture.VertexElements);
-            BasicEffect effect = new BasicEffect(graphics.GraphicsDevice, null);
-            //world = Matrix.Identity;
-            effect.World = world;
-            effect.Projection = projection;
-            effect.View = view;
-            effect.EnableDefaultLighting();
-            effect.TextureEnabled = true;
-            effect.Texture = this.texture;
-            this.rotationRate += 0.02f;
-            world = Matrix.CreateRotationY(this.rotationRate);
-            world = Matrix.CreateRotationX(this.rotationRate);
-            effect.Begin();
-            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+
+            BasicEffect effectTriangle = new BasicEffect(graphics.GraphicsDevice, null);
+            this.InitializeEffect(effectTriangle);
+
+            BasicEffect effectRectangle = new BasicEffect(graphics.GraphicsDevice, null);
+            this.InitializeEffect(effectRectangle);
+
+            this.effects.Add(effectTriangle, this.triangle);
+            this.effects.Add(effectRectangle, this.rectangle);
+            //this.rotationRate += 0.01f;
+            //world = Matrix.CreateRotationY(this.rotationRate);
+           // world = Matrix.CreateRotationX(this.rotationRate);
+
+            foreach (KeyValuePair<BasicEffect, Figures.VerticesIndicesFigure> kvp in this.effects)
             {
-                pass.Begin();
-                graphics.GraphicsDevice.DrawUserPrimitives(
-                PrimitiveType.TriangleList, vertices, 0,
-                vertices.Length / 3);
-                pass.End();
+                BasicEffect effect = kvp.Key;
+                effect.Begin();
+                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                {
+                    pass.Begin();
+                    kvp.Value.Draw(graphics.GraphicsDevice);
+                    pass.End();
+                }
+                effect.End();
             }
-            effect.End();
 
 
 
