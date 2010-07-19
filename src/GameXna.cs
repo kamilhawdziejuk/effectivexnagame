@@ -29,11 +29,14 @@ namespace GameXna
         SpriteBatch spriteBatch;
 
         global::GameXna.Figures.Triangle triangle;
-        global::GameXna.Figures.Rectangle rectangle;
+        global::GameXna.Figures.Rectangle rectangleRight;
+        global::GameXna.Figures.Rectangle rectangleLeft;
+        global::GameXna.Figures.Rectangle rectangleCenter;
 
         Dictionary<BasicEffect, Figures.VerticesIndicesFigure> effects = new Dictionary<BasicEffect, Figures.VerticesIndicesFigure>();
 
         private Texture2D texture;
+        private Texture2D textureCenter;
     
         private float rotationRate = 0;
         private FPS fps;
@@ -58,9 +61,10 @@ namespace GameXna
         {
             this.InitializeWorld();
 
-            this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-1, 1, 0), new Vector3(1, -1, 0), new Vector3(-1, -1, 0));
-            this.rectangle = new global::GameXna.Figures.Rectangle(new Vector3(1.2f, -1, -1), new Vector3(1.5f, 1f, 1));
-
+            this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-1, 0.8f, 0), new Vector3(1, -0.8f, 0), new Vector3(-1, -0.8f, 0));
+            this.rectangleRight = new global::GameXna.Figures.Rectangle(new Vector3(1.7f, -0.8f, -1), new Vector3(2.0f, 0.8f, 1));
+            this.rectangleLeft = new global::GameXna.Figures.Rectangle(new Vector3(-2.0f, -0.8f, 1), new Vector3(-1.7f, 0.8f, -1));
+            this.rectangleCenter = new global::GameXna.Figures.Rectangle(new Vector3(-1.7f, -0.8f, -1), new Vector3(1.7f, 0.8f, -1));
             base.Initialize();
         }
 
@@ -92,6 +96,7 @@ namespace GameXna
         protected override void LoadGraphicsContent(bool loadAllContent)
         {
             texture = Content.Load<Texture2D>("Textures\\obraz");
+            this.textureCenter = Content.Load<Texture2D>("Textures\\animeGirls");
         }
 
         /// <summary>
@@ -136,21 +141,30 @@ namespace GameXna
         protected override void Draw(GameTime gameTime)
         {
 
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkSlateGray);
 
             // TODO: Add your drawing code here
             graphics.GraphicsDevice.VertexDeclaration = new
                     VertexDeclaration(graphics.GraphicsDevice,
                     VertexPositionNormalTexture.VertexElements);
 
-            BasicEffect effectTriangle = new BasicEffect(graphics.GraphicsDevice, null);
-            this.InitializeEffect(effectTriangle);
+            //BasicEffect effectTriangle = new BasicEffect(graphics.GraphicsDevice, null);
+            //this.InitializeEffect(effectTriangle);
 
-            BasicEffect effectRectangle = new BasicEffect(graphics.GraphicsDevice, null);
-            this.InitializeEffect(effectRectangle);
+            BasicEffect effectRectangleRight = new BasicEffect(graphics.GraphicsDevice, null);
+            this.InitializeEffect(effectRectangleRight);
 
-            this.effects.Add(effectTriangle, this.triangle);
-            this.effects.Add(effectRectangle, this.rectangle);
+            BasicEffect effectRectangleLeft = new BasicEffect(graphics.GraphicsDevice, null);
+            this.InitializeEffect(effectRectangleLeft);
+
+
+            BasicEffect effectRectangleCenter = new BasicEffect(graphics.GraphicsDevice, null);
+            this.InitializeEffect(effectRectangleCenter);
+            effectRectangleCenter.Texture = this.textureCenter;
+
+            this.effects.Add(effectRectangleRight, this.rectangleRight);
+            this.effects.Add(effectRectangleLeft, this.rectangleLeft);
+            this.effects.Add(effectRectangleCenter, this.rectangleCenter);
             //this.rotationRate += 0.01f;
             //world = Matrix.CreateRotationY(this.rotationRate);
            // world = Matrix.CreateRotationX(this.rotationRate);
@@ -167,8 +181,6 @@ namespace GameXna
                 }
                 effect.End();
             }
-
-
 
             base.Draw(gameTime);
         }
