@@ -1,19 +1,17 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
-    <ProjectGuid>{BEC08D55-F74E-4133-B89A-C3E4982ED818}</ProjectGuid>
+    <ProjectGuid>{87BA987C-90E2-4CE7-BAF1-D791B684445E}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GameXna</RootNamespace>
-    <AssemblyName>GameXna</AssemblyName>
+    <RootNamespace>XELibrary</RootNamespace>
+    <AssemblyName>XELibrary</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <XnaFrameworkVersion>v3.1</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaCrossPlatformGroupID>ec35ae76-239f-4fc3-880d-f116d26a9eb5</XnaCrossPlatformGroupID>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
-    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <XnaCrossPlatformGroupID>fd7e095e-a382-4393-b2d0-2e699114d43f</XnaCrossPlatformGroupID>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -71,7 +69,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -85,20 +82,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Figures\Rectangle.cs" />
-    <Compile Include="Figures\Triangle.cs" />
-    <Compile Include="Figures\VerticesIndicesFigure.cs" />
+    <Compile Include="Camera.cs" />
+    <Compile Include="FPS.cs" />
+    <Compile Include="IInputHandler.cs" />
+    <Compile Include="InputHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="GameXna.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Game.ico" />
-    <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content\Content.contentproj">
-      <Project>704e1109-eb1f-4e81-9a7d-f9e39627ce93</Project>
+      <Project>e5041441-cf00-478d-95ca-a2447bdce158</Project>
       <Visible>False</Visible>
     </NestedContentProject>
   </ItemGroup>
@@ -128,12 +120,6 @@
       <ProductName>Microsoft XNA Framework Redistributable 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\XELibrary\XELibrary.csproj">
-      <Project>{87BA987C-90E2-4CE7-BAF1-D791B684445E}</Project>
-      <Name>XELibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
