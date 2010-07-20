@@ -14,6 +14,7 @@ namespace XELibrary
         public InputHandler(Game game)
             : base(game)
         {
+            game.Services.AddService(typeof(IInputHandler), this);
         }
 
         public override void Update(GameTime gameTime)
