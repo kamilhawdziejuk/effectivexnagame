@@ -27,7 +27,6 @@ namespace XELibrary
         {
             graphics = (GraphicsDeviceManager)Game.Services.GetService(typeof(IGraphicsDeviceManager));
             input = (IInputHandler)Game.Services.GetService(typeof(IInputHandler));
-            input = (IInputHandler)Game.Components[1];
         }
 
         public Matrix View
