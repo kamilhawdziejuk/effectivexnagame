@@ -21,7 +21,7 @@ namespace GameXna
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class GameXna : Microsoft.Xna.Framework.Game
+    public class GameXna : Game
     {
         /// <summary>
         /// Component --> Camera
@@ -32,6 +32,11 @@ namespace GameXna
         /// Component ---> FPS
         /// </summary>
         private FPS fps;
+
+        /// <summary>
+        /// Component ---> Input
+        /// </summary>
+        private InputHandler input;
 
         private float sum = 0.05f;
         bool changed = true;
@@ -60,6 +65,9 @@ namespace GameXna
             fps = new FPS(this);
             Components.Add(fps);
 #endif
+            input = new InputHandler(this);
+            Components.Add(input);
+
             camera = new Camera(this);
             Components.Add(camera);
 
@@ -117,8 +125,9 @@ namespace GameXna
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            {
                 this.Exit();
-
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -140,7 +149,7 @@ namespace GameXna
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (changed)
+            //if (changed)
             {
                 GraphicsDevice.Clear(Color.LightYellow);
 
@@ -167,14 +176,6 @@ namespace GameXna
                 this.effects.Add(effectRectangleRight, this.rectangleRight);
                 this.effects.Add(effectRectangleLeft, this.rectangleLeft);
                 this.effects.Add(effectRectangleCenter, this.rectangleCenter);
-
-                //   this.rotationRate += sum;
-                ////   if (this.rotationRate < 0 || this.rotationRate > 0.02f)
-                //   {
-                //       sum *= -1;
-                //   }
-
-                this.camera.cameraPosition.X += 0.05f;
 
                 //world = Matrix.CreateRotationY(this.rotationRate);
                 // world = Matrix.CreateRotationX(this.rotationRate);
