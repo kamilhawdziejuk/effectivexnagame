@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using XELibrary;
 
 namespace GameXna
 {
@@ -22,8 +23,18 @@ namespace GameXna
     /// </summary>
     public class GameXna : Microsoft.Xna.Framework.Game
     {
-        private Camera camera = new Camera();
-        private WorldData worldData = new WorldData();
+        /// <summary>
+        /// Component --> Camera
+        /// </summary>
+        private Camera camera;
+
+        /// <summary>
+        /// Component ---> FPS
+        /// </summary>
+        private FPS fps;
+
+        private float sum = 0.05f;
+        bool changed = true;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -39,7 +50,7 @@ namespace GameXna
         private Texture2D textureCenter;
     
         private float rotationRate = 0;
-        private FPS fps;
+        
 
         public GameXna()
         {
@@ -49,6 +60,9 @@ namespace GameXna
             fps = new FPS(this);
             Components.Add(fps);
 #endif
+            camera = new Camera(this);
+            Components.Add(camera);
+
         }
 
         /// <summary>
@@ -59,25 +73,11 @@ namespace GameXna
         /// </summary>
         protected override void Initialize()
         {
-            this.InitializeWorld();
-
             this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-1, 0.8f, 0), new Vector3(1, -0.8f, 0), new Vector3(-1, -0.8f, 0));
             this.rectangleRight = new global::GameXna.Figures.Rectangle(new Vector3(1.7f, -0.8f, -1), new Vector3(2.0f, 0.8f, 1));
             this.rectangleLeft = new global::GameXna.Figures.Rectangle(new Vector3(-2.0f, -0.8f, 1), new Vector3(-1.7f, 0.8f, -1));
             this.rectangleCenter = new global::GameXna.Figures.Rectangle(new Vector3(-1.7f, -0.8f, -1), new Vector3(1.7f, 0.8f, -1));
             base.Initialize();
-        }
-
-        private void InitializeWorld()
-        {
-            this.worldData.World = Matrix.Identity;
-
-            Matrix.CreateLookAt(ref this.camera.cameraPosition, ref this.camera.cameraTarget, ref this.camera.cameraUpVector, 
-                out this.worldData.View);
-
-            float aspectRatio = (float)graphics.GraphicsDevice.Viewport.Width /
-            (float)graphics.GraphicsDevice.Viewport.Height;
-            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio,  0.0001f, 1000.0f, out this.worldData.Projection);
         }
 
         /// <summary>
@@ -126,9 +126,9 @@ namespace GameXna
 
         private void InitializeEffect(BasicEffect effect)
         {
-            effect.World = this.worldData.World;
-            effect.Projection = this.worldData.Projection;
-            effect.View = this.worldData.View;
+            effect.World = Matrix.Identity; 
+            effect.Projection = this.camera.Projection;
+            effect.View = this.camera.View;
             effect.EnableDefaultLighting();
             effect.TextureEnabled = true;
             effect.Texture = this.texture;
@@ -140,49 +140,61 @@ namespace GameXna
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-
-            GraphicsDevice.Clear(Color.DarkSlateGray);
-
-            // TODO: Add your drawing code here
-            graphics.GraphicsDevice.VertexDeclaration = new
-                    VertexDeclaration(graphics.GraphicsDevice,
-                    VertexPositionNormalTexture.VertexElements);
-
-            //BasicEffect effectTriangle = new BasicEffect(graphics.GraphicsDevice, null);
-            //this.InitializeEffect(effectTriangle);
-
-            BasicEffect effectRectangleRight = new BasicEffect(graphics.GraphicsDevice, null);
-            this.InitializeEffect(effectRectangleRight);
-
-            BasicEffect effectRectangleLeft = new BasicEffect(graphics.GraphicsDevice, null);
-            this.InitializeEffect(effectRectangleLeft);
-
-
-            BasicEffect effectRectangleCenter = new BasicEffect(graphics.GraphicsDevice, null);
-            this.InitializeEffect(effectRectangleCenter);
-            effectRectangleCenter.Texture = this.textureCenter;
-
-            this.effects.Add(effectRectangleRight, this.rectangleRight);
-            this.effects.Add(effectRectangleLeft, this.rectangleLeft);
-            this.effects.Add(effectRectangleCenter, this.rectangleCenter);
-            //this.rotationRate += 0.01f;
-            //world = Matrix.CreateRotationY(this.rotationRate);
-           // world = Matrix.CreateRotationX(this.rotationRate);
-
-            foreach (KeyValuePair<BasicEffect, Figures.VerticesIndicesFigure> kvp in this.effects)
+            if (changed)
             {
-                BasicEffect effect = kvp.Key;
-                effect.Begin();
-                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-                {
-                    pass.Begin();
-                    kvp.Value.Draw(graphics.GraphicsDevice);
-                    pass.End();
-                }
-                effect.End();
-            }
+                GraphicsDevice.Clear(Color.LightYellow);
 
-            base.Draw(gameTime);
+                // TODO: Add your drawing code here
+                graphics.GraphicsDevice.VertexDeclaration = new
+                        VertexDeclaration(graphics.GraphicsDevice,
+                        VertexPositionNormalTexture.VertexElements);
+
+                //BasicEffect effectTriangle = new BasicEffect(graphics.GraphicsDevice, null);
+                //this.InitializeEffect(effectTriangle);
+
+                BasicEffect effectRectangleRight = new BasicEffect(graphics.GraphicsDevice, null);
+                this.InitializeEffect(effectRectangleRight);
+
+                BasicEffect effectRectangleLeft = new BasicEffect(graphics.GraphicsDevice, null);
+                this.InitializeEffect(effectRectangleLeft);
+
+
+                BasicEffect effectRectangleCenter = new BasicEffect(graphics.GraphicsDevice, null);
+                this.InitializeEffect(effectRectangleCenter);
+                effectRectangleCenter.Texture = this.textureCenter;
+                //effectRectangleCenter.World = Matrix.CreateTranslation(0, this.rotationRate, 0);
+
+                this.effects.Add(effectRectangleRight, this.rectangleRight);
+                this.effects.Add(effectRectangleLeft, this.rectangleLeft);
+                this.effects.Add(effectRectangleCenter, this.rectangleCenter);
+
+                //   this.rotationRate += sum;
+                ////   if (this.rotationRate < 0 || this.rotationRate > 0.02f)
+                //   {
+                //       sum *= -1;
+                //   }
+
+                this.camera.cameraPosition.X += 0.05f;
+
+                //world = Matrix.CreateRotationY(this.rotationRate);
+                // world = Matrix.CreateRotationX(this.rotationRate);
+                // worldData.World = Matrix.CreateTranslation(this.rotationRate, 0, 0);
+                foreach (KeyValuePair<BasicEffect, Figures.VerticesIndicesFigure> kvp in this.effects)
+                {
+                    BasicEffect effect = kvp.Key;
+                    effect.Begin();
+                    foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                    {
+                        pass.Begin();
+                        kvp.Value.Draw(graphics.GraphicsDevice);
+                        pass.End();
+                    }
+                    effect.End();
+                }
+
+                base.Draw(gameTime);
+                changed = false;
+            }
         }
     }
 }

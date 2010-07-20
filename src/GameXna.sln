@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameXna", "GameXna.csproj", "{BEC08D55-F74E-4133-B89A-C3E4982ED818}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XELibrary", "..\XELibrary\XELibrary.csproj", "{87BA987C-90E2-4CE7-BAF1-D791B684445E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +17,12 @@ Global
 		{BEC08D55-F74E-4133-B89A-C3E4982ED818}.Release|x86.Build.0 = Release|x86
 		{704E1109-EB1F-4E81-9A7D-F9E39627CE93}.Debug|x86.ActiveCfg = Debug|x86
 		{704E1109-EB1F-4E81-9A7D-F9E39627CE93}.Release|x86.ActiveCfg = Release|x86
+		{87BA987C-90E2-4CE7-BAF1-D791B684445E}.Debug|x86.ActiveCfg = Debug|x86
+		{87BA987C-90E2-4CE7-BAF1-D791B684445E}.Debug|x86.Build.0 = Debug|x86
+		{87BA987C-90E2-4CE7-BAF1-D791B684445E}.Release|x86.ActiveCfg = Release|x86
+		{87BA987C-90E2-4CE7-BAF1-D791B684445E}.Release|x86.Build.0 = Release|x86
+		{E5041441-CF00-478D-95CA-A2447BDCE158}.Debug|x86.ActiveCfg = Debug|x86
+		{E5041441-CF00-478D-95CA-A2447BDCE158}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
