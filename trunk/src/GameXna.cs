@@ -151,6 +151,8 @@ namespace GameXna
         {
             //if (changed)
             {
+                graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
+
                 GraphicsDevice.Clear(Color.LightYellow);
 
                 // TODO: Add your drawing code here
@@ -172,7 +174,7 @@ namespace GameXna
                 this.InitializeEffect(effectRectangleCenter);
                 effectRectangleCenter.Texture = this.textureCenter;
                 //effectRectangleCenter.World = Matrix.CreateTranslation(0, this.rotationRate, 0);
-
+                this.effects.Clear();
                 this.effects.Add(effectRectangleRight, this.rectangleRight);
                 this.effects.Add(effectRectangleLeft, this.rectangleLeft);
                 this.effects.Add(effectRectangleCenter, this.rectangleCenter);

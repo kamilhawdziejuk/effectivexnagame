@@ -10,11 +10,18 @@ namespace XELibrary
     public class InputHandler : GameComponent, IInputHandler
     {
         private KeyboardState keyboardState;
-
+#if !XBOX360
+        private MouseState mouseState;
+        private MouseState prevMouseState;
+#endif
         public InputHandler(Game game)
             : base(game)
         {
             game.Services.AddService(typeof(IInputHandler), this);
+#if !XBOX360
+            Game.IsMouseVisible = true;
+            prevMouseState = Mouse.GetState();
+#endif
         }
 
         public override void Update(GameTime gameTime)
@@ -24,6 +31,10 @@ namespace XELibrary
             {
                 Game.Exit();
             }
+#if !XBOX360
+            prevMouseState = mouseState;
+            mouseState = Mouse.GetState();
+#endif
             base.Update(gameTime);
         }
 
@@ -34,6 +45,16 @@ namespace XELibrary
             get { return (keyboardState); }
         }
 
+#if !XBOX360
+        public MouseState MouseState
+        {
+            get { return (mouseState); }
+        }
+        public MouseState PreviousMouseState
+        {
+            get { return (prevMouseState); }
+        }
+#endif
         #endregion
     }
 }
