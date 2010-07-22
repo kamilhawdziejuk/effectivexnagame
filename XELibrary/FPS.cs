@@ -26,6 +26,9 @@ namespace XELibrary
             Game.IsFixedTimeStep = isFixedTimeStep;
             Game.TargetElapsedTime = targetElapsedTime;
         }
+        public FPS(Game game, bool synchWithVerticalRetrace, bool isFixedTimeStep)
+            : this(game, synchWithVerticalRetrace, isFixedTimeStep,
+            game.TargetElapsedTime) { }
         /// <summary>
         /// Allows the game component to perform any initialization
         /// it needs to before starting to run. This is where it can query for
