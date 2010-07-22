@@ -19,7 +19,9 @@ namespace XELibrary
         private Matrix view;
 
         private float cameraYaw = 0.0f;
-        private const float spinRate = 20.0f;
+        private float cameraPitch = 0.0f;
+
+        private const float spinRate = 30.0f;
 
         private Vector3 cameraReferance = new Vector3(0.0f, 0.0f, -1.0f);
 
@@ -66,6 +68,17 @@ namespace XELibrary
             {
                 cameraYaw -= (spinRate * timeDelta);
             }
+
+            if ((input.PreviousMouseState.Y > input.MouseState.Y) &&
+                (input.MouseState.LeftButton == ButtonState.Pressed))
+            {
+                cameraPitch += (spinRate * timeDelta);
+            }
+            else if ((input.PreviousMouseState.Y < input.MouseState.Y) &&
+                (input.MouseState.LeftButton == ButtonState.Pressed))
+            {
+                cameraPitch -= (spinRate * timeDelta);
+            }
 #endif
 
 
@@ -77,6 +90,14 @@ namespace XELibrary
             {
                 cameraYaw -= (spinRate * timeDelta);
             }
+            if (input.KeyboardState.IsKeyDown(Keys.Up))
+            {
+                cameraPitch += (spinRate * timeDelta);
+            }
+            if (input.KeyboardState.IsKeyDown(Keys.Down))
+            {
+                cameraPitch -= (spinRate * timeDelta);
+            }
 
             if (cameraYaw > 360)
             {
@@ -86,10 +107,19 @@ namespace XELibrary
             {
                 cameraYaw += 360;
             }
+
+            if (cameraPitch > 360)
+            {
+                cameraPitch -= 360;
+            }
+            else if (cameraPitch < 0)
+            {
+                cameraPitch += 360;
+            }
  	        base.Update(gameTime);
 
             Matrix rotationMatrix;
-            Matrix.CreateRotationY(MathHelper.ToRadians(cameraYaw), out rotationMatrix);
+            Matrix.CreateFromYawPitchRoll(MathHelper.ToRadians(cameraYaw), MathHelper.ToRadians(cameraPitch), 0.0f, out rotationMatrix); 
             //create a vector poinint the direction the camera is facing
             Vector3 transformedReference;
             Vector3.Transform(ref cameraReferance, ref rotationMatrix, out transformedReference);
