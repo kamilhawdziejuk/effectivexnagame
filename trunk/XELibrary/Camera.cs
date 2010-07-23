@@ -9,7 +9,7 @@ namespace XELibrary
 {
     public class Camera : GameComponent
     {
-        private IInputHandler input;
+        protected IInputHandler input;
         private GraphicsDeviceManager graphics;
 
         public Vector3 cameraPosition = new Vector3(0.0f, 0.0f, 3.0f);
@@ -20,8 +20,10 @@ namespace XELibrary
 
         private float cameraYaw = 0.0f;
         private float cameraPitch = 0.0f;
+        protected Vector3 movement = Vector3.Zero;
 
         private const float spinRate = 30.0f;
+        private const float moveRate = 3.0f;
 
         private Vector3 cameraReferance = new Vector3(0.0f, 0.0f, -1.0f);
 
@@ -116,13 +118,32 @@ namespace XELibrary
             {
                 cameraPitch += 360;
             }
- 	        base.Update(gameTime);
 
+
+            //update movement (none for this base class)
+            movement *= (moveRate * timeDelta);
             Matrix rotationMatrix;
-            Matrix.CreateFromYawPitchRoll(MathHelper.ToRadians(cameraYaw), MathHelper.ToRadians(cameraPitch), 0.0f, out rotationMatrix); 
-            //create a vector poinint the direction the camera is facing
             Vector3 transformedReference;
+            Matrix.CreateRotationY(MathHelper.ToRadians(cameraYaw), out rotationMatrix);
+            if (movement != Vector3.Zero)
+            {
+                Vector3.Transform(ref movement, ref rotationMatrix, out movement);
+                cameraPosition += movement;
+                movement = Vector3.Zero;
+            }
+            //add in pitch to the rotation
+            rotationMatrix = Matrix.CreateRotationX(MathHelper.ToRadians(cameraPitch)) * rotationMatrix;
+            //Matrix rotationMatrix;
+            //Matrix.CreateFromYawPitchRoll(MathHelper.ToRadians(cameraYaw), MathHelper.ToRadians(cameraPitch), 0.0f, out rotationMatrix); 
+            ////create a vector poinint the direction the camera is facing
+            //Vector3 transformedReference;
             Vector3.Transform(ref cameraReferance, ref rotationMatrix, out transformedReference);
+
+            //if (movement != Vector3.Zero)
+            //{
+            //    Vector3.Transform(ref movement, ref rotationMatrix, out movement);
+            //    cameraPosition += movement;
+            //}
 
             //Calculate the position the camera is looking at
             Vector3.Add(ref cameraPosition, ref transformedReference, out cameraTarget);
@@ -130,6 +151,8 @@ namespace XELibrary
             float aspectRatio = (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height;
             Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 0.0001f, 1000.0f, out this.projection);
             Matrix.CreateLookAt(ref this.cameraPosition, ref this.cameraTarget, ref this.cameraUpVector, out this.view);
+
+            base.Update(gameTime);
         }
     }
 }
