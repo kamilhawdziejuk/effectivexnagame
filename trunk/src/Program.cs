@@ -1,3 +1,6 @@
+//Kamil Hawdziejuk
+//24-07-2010
+
 using System;
 
 namespace GameXna
