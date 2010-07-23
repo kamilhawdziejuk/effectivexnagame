@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="FirstPersonCamera.cs" />
     <Compile Include="FPS.cs" />
     <Compile Include="IInputHandler.cs" />
     <Compile Include="InputHandler.cs" />

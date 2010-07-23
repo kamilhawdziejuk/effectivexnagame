@@ -26,7 +26,12 @@ namespace GameXna
         /// <summary>
         /// Component --> Camera
         /// </summary>
-        private Camera camera;
+       // private Camera camera;
+
+        /// <summary>
+        /// Component --> FirstPersonCamera
+        /// </summary>
+        private FirstPersonCamera camera;
 
         /// <summary>
         /// Component ---> FPS
@@ -68,9 +73,13 @@ namespace GameXna
             input = new InputHandler(this);
             Components.Add(input);
 
-            camera = new Camera(this);
+            //camera = new Camera(this);
+           // Components.Add(camera);
+
+            camera = new FirstPersonCamera(this);
             Components.Add(camera);
 
+            
         }
 
         /// <summary>
