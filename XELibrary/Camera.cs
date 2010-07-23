@@ -1,4 +1,7 @@
-﻿using System;
+﻿//Kamil Hawdziejuk
+//24-07-2010
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,11 +30,19 @@ namespace XELibrary
 
         private Vector3 cameraReferance = new Vector3(0.0f, 0.0f, -1.0f);
 
+        #region --- Constructing & destroying objects ---
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game"></param>
         public Camera(Game game) : base(game)
         {
             graphics = (GraphicsDeviceManager)Game.Services.GetService(typeof(IGraphicsDeviceManager));
             input = (IInputHandler)Game.Services.GetService(typeof(IInputHandler));
         }
+
+        #endregion
 
         public Matrix View
         {
@@ -133,17 +144,7 @@ namespace XELibrary
             }
             //add in pitch to the rotation
             rotationMatrix = Matrix.CreateRotationX(MathHelper.ToRadians(cameraPitch)) * rotationMatrix;
-            //Matrix rotationMatrix;
-            //Matrix.CreateFromYawPitchRoll(MathHelper.ToRadians(cameraYaw), MathHelper.ToRadians(cameraPitch), 0.0f, out rotationMatrix); 
-            ////create a vector poinint the direction the camera is facing
-            //Vector3 transformedReference;
             Vector3.Transform(ref cameraReferance, ref rotationMatrix, out transformedReference);
-
-            //if (movement != Vector3.Zero)
-            //{
-            //    Vector3.Transform(ref movement, ref rotationMatrix, out movement);
-            //    cameraPosition += movement;
-            //}
 
             //Calculate the position the camera is looking at
             Vector3.Add(ref cameraPosition, ref transformedReference, out cameraTarget);

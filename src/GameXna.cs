@@ -23,10 +23,7 @@ namespace GameXna
     /// </summary>
     public class GameXna : Game
     {
-        /// <summary>
-        /// Component --> Camera
-        /// </summary>
-       // private Camera camera;
+        #region --- Components ---
 
         /// <summary>
         /// Component --> FirstPersonCamera
@@ -43,11 +40,18 @@ namespace GameXna
         /// </summary>
         private InputHandler input;
 
-        private float sum = 0.05f;
-        bool changed = true;
+        #endregion
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        #region --- Private fields ---
+
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private Texture2D texture;
+        private Texture2D textureCenter;
+
+        #endregion
+
+        #region --- Basic objects / effects ---
 
         global::GameXna.Figures.Triangle triangle;
         global::GameXna.Figures.Rectangle rectangleRight;
@@ -56,12 +60,13 @@ namespace GameXna
 
         Dictionary<BasicEffect, Figures.VerticesIndicesFigure> effects = new Dictionary<BasicEffect, Figures.VerticesIndicesFigure>();
 
-        private Texture2D texture;
-        private Texture2D textureCenter;
-    
-        private float rotationRate = 0;
-        
+        #endregion
 
+        #region --- Creating & destroying objects ---
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public GameXna()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -73,14 +78,11 @@ namespace GameXna
             input = new InputHandler(this);
             Components.Add(input);
 
-            //camera = new Camera(this);
-           // Components.Add(camera);
-
             camera = new FirstPersonCamera(this);
             Components.Add(camera);
-
-            
         }
+
+        #endregion
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -142,6 +144,10 @@ namespace GameXna
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Initializates one basic effect
+        /// </summary>
+        /// <param name="effect"></param>
         private void InitializeEffect(BasicEffect effect)
         {
             effect.World = Matrix.Identity; 
@@ -158,55 +164,43 @@ namespace GameXna
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            //if (changed)
+            graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
+            GraphicsDevice.Clear(Color.LightYellow);
+
+            graphics.GraphicsDevice.VertexDeclaration = new
+                    VertexDeclaration(graphics.GraphicsDevice,
+                    VertexPositionNormalTexture.VertexElements);
+
+            //wall1
+            BasicEffect effectRectangleRight = new BasicEffect(graphics.GraphicsDevice, null);
+            this.InitializeEffect(effectRectangleRight);
+            //wall2
+            BasicEffect effectRectangleLeft = new BasicEffect(graphics.GraphicsDevice, null);
+            this.InitializeEffect(effectRectangleLeft);
+            //wall_center
+            BasicEffect effectRectangleCenter = new BasicEffect(graphics.GraphicsDevice, null);
+            this.InitializeEffect(effectRectangleCenter);
+            effectRectangleCenter.Texture = this.textureCenter;
+
+            this.effects.Clear();
+            this.effects.Add(effectRectangleRight, this.rectangleRight);
+            this.effects.Add(effectRectangleLeft, this.rectangleLeft);
+            this.effects.Add(effectRectangleCenter, this.rectangleCenter);
+
+            foreach (KeyValuePair<BasicEffect, Figures.VerticesIndicesFigure> kvp in this.effects)
             {
-                graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
-
-                GraphicsDevice.Clear(Color.LightYellow);
-
-                // TODO: Add your drawing code here
-                graphics.GraphicsDevice.VertexDeclaration = new
-                        VertexDeclaration(graphics.GraphicsDevice,
-                        VertexPositionNormalTexture.VertexElements);
-
-                //BasicEffect effectTriangle = new BasicEffect(graphics.GraphicsDevice, null);
-                //this.InitializeEffect(effectTriangle);
-
-                BasicEffect effectRectangleRight = new BasicEffect(graphics.GraphicsDevice, null);
-                this.InitializeEffect(effectRectangleRight);
-
-                BasicEffect effectRectangleLeft = new BasicEffect(graphics.GraphicsDevice, null);
-                this.InitializeEffect(effectRectangleLeft);
-
-
-                BasicEffect effectRectangleCenter = new BasicEffect(graphics.GraphicsDevice, null);
-                this.InitializeEffect(effectRectangleCenter);
-                effectRectangleCenter.Texture = this.textureCenter;
-                //effectRectangleCenter.World = Matrix.CreateTranslation(0, this.rotationRate, 0);
-                this.effects.Clear();
-                this.effects.Add(effectRectangleRight, this.rectangleRight);
-                this.effects.Add(effectRectangleLeft, this.rectangleLeft);
-                this.effects.Add(effectRectangleCenter, this.rectangleCenter);
-
-                //world = Matrix.CreateRotationY(this.rotationRate);
-                // world = Matrix.CreateRotationX(this.rotationRate);
-                // worldData.World = Matrix.CreateTranslation(this.rotationRate, 0, 0);
-                foreach (KeyValuePair<BasicEffect, Figures.VerticesIndicesFigure> kvp in this.effects)
+                BasicEffect effect = kvp.Key;
+                effect.Begin();
+                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
                 {
-                    BasicEffect effect = kvp.Key;
-                    effect.Begin();
-                    foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-                    {
-                        pass.Begin();
-                        kvp.Value.Draw(graphics.GraphicsDevice);
-                        pass.End();
-                    }
-                    effect.End();
+                    pass.Begin();
+                    kvp.Value.Draw(graphics.GraphicsDevice);
+                    pass.End();
                 }
-
-                base.Draw(gameTime);
-                changed = false;
+                effect.End();
             }
+
+            base.Draw(gameTime);
         }
     }
 }
