@@ -67,6 +67,10 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="StillDesign.PhysX.Net, Version=0.11.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PhysX.Net\StillDesign.PhysX.Net.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -88,6 +92,8 @@
     <Compile Include="Figures\Rectangle.cs" />
     <Compile Include="Figures\Triangle.cs" />
     <Compile Include="Figures\VerticesIndicesFigure.cs" />
+    <Compile Include="GameObject.cs" />
+    <Compile Include="GameObjectsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GameXna.cs" />

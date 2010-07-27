@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Textures\obraz.jpg</Source>
+      <Name>Textures\obraz</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Textures\obraz.xnb</Output>
+      <Time>2010-07-18T20:01:11.3142515+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\animeGirls.png</Source>
+      <Name>Textures\animeGirls</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Textures\animeGirls.xnb</Output>
+      <Time>2010-07-19T21:09:34.7629547+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\BesballBat.x</Source>
+      <Name>Models\BesballBat</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\BesballBat.xnb</Output>
+      <Time>2008-12-01T15:44:52+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\BesballBat_0.xml</Key>
+        <Value>2010-07-27T21:20:03.8062487+02:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\ClassicBike.x</Source>
+      <Name>Models\ClassicBike</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\ClassicBike.xnb</Output>
+      <Time>2010-07-25T20:39:22.2603293+02:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\ClassicBike_0.xml</Key>
+        <Value>2010-07-27T21:20:05.2733327+02:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\ford.x</Source>
+      <Name>Models\ford</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\ford.xnb</Output>
+      <Time>2010-07-26T18:43:59.4892622+02:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\ford_0.xml</Key>
+        <Value>2010-07-27T21:20:05.8103634+02:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\BesballBat.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\BesballBat_0.xml</Output>
+      <Time>2008-12-01T15:44:52+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\ClassicBike.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\ClassicBike_0.xml</Output>
+      <Time>2010-07-25T20:39:22.2603293+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\ford.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\ford_0.xml</Output>
+      <Time>2010-07-26T18:43:59.4892622+02:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>D:\programming\xna_programming\effectivexnagame\trunk\src\Content\</RootDirectory>
+      <LoggerRootDirectory>D:\programming\xna_programming\effectivexnagame\trunk\src\</LoggerRootDirectory>
+      <IntermediateDirectory>D:\programming\xna_programming\effectivexnagame\trunk\src\Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2009-05-28T00:16:14+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2009-05-28T00:16:06+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2009-05-28T00:16:16+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2009-05-28T00:16:26+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2009-05-28T00:16:12+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2009-05-28T00:16:06+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.1.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2010-07-10T10:22:24.7576094+02:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
