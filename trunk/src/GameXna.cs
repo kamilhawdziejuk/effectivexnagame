@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using XELibrary;
+using StillDesign;
 
 namespace GameXna
 {
@@ -44,6 +45,7 @@ namespace GameXna
 
         #region --- Private fields ---
 
+        private GameObjectsManager GameObjectManager;
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Texture2D texture;
@@ -69,7 +71,10 @@ namespace GameXna
         /// </summary>
         public GameXna()
         {
-            graphics = new GraphicsDeviceManager(this);
+            this.graphics = new GraphicsDeviceManager(this);
+            this.Content = new ContentManager(Services);
+            this.GameObjectManager = new GameObjectsManager();
+
             Content.RootDirectory = "Content";
 #if DEBUG
             fps = new FPS(this);
@@ -80,6 +85,7 @@ namespace GameXna
 
             camera = new FirstPersonCamera(this);
             Components.Add(camera);
+
         }
 
         #endregion
@@ -96,7 +102,38 @@ namespace GameXna
             this.rectangleRight = new global::GameXna.Figures.Rectangle(new Vector3(1.7f, -0.8f, -1), new Vector3(2.0f, 0.8f, 1));
             this.rectangleLeft = new global::GameXna.Figures.Rectangle(new Vector3(-2.0f, -0.8f, 1), new Vector3(-1.7f, 0.8f, -1));
             this.rectangleCenter = new global::GameXna.Figures.Rectangle(new Vector3(-1.7f, -0.8f, -1), new Vector3(1.7f, 0.8f, -1));
+
+            Matrix carWorld = Matrix.CreateScale(0.0015f) * 
+                Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) *
+                Matrix.CreateRotationY(MathHelper.ToRadians(90.0f)) *
+                Matrix.CreateTranslation(new Vector3(0.5f, -0.5f, 0));
+
+            this.GameObjectManager.AddGameObject(new GameObject(null, carWorld, "car"));
+
             base.Initialize();
+        }
+
+        private void DrawGameObject(GameObject gameObject)
+        {
+            DrawModel(ref gameObject.Model, ref gameObject.World);
+        }
+
+        private void DrawModel(ref Model m, ref Matrix world)
+        {
+
+            Matrix[] transforms = new Matrix[m.Bones.Count];
+            m.CopyAbsoluteBoneTransformsTo(transforms);
+            foreach (ModelMesh mesh in m.Meshes)
+            {
+                foreach (BasicEffect be in mesh.Effects)
+                {
+                    be.EnableDefaultLighting();
+                    be.Projection = camera.Projection;
+                    be.View = camera.View;
+                    be.World = world * mesh.ParentBone.Transform;
+                }
+                mesh.Draw();
+            }
         }
 
         /// <summary>
@@ -116,6 +153,13 @@ namespace GameXna
         {
             texture = Content.Load<Texture2D>("Textures\\obraz");
             this.textureCenter = Content.Load<Texture2D>("Textures\\animeGirls");
+            if (loadAllContent)
+            {
+                // TODO: Load any ResourceManagementMode.Automatic content
+                //bikeModel = Content.Load<Model>("Models\\ClassicBike");
+                //bikeModel = Content.Load<Model>("Models\\BesballBat");
+                this.GameObjectManager.GetObject("car").Model = Content.Load<Model>("Models\\ford");
+            }
         }
 
         /// <summary>
@@ -198,6 +242,12 @@ namespace GameXna
                     pass.End();
                 }
                 effect.End();
+            }
+
+            foreach (GameObject obj in this.GameObjectManager.GameObjects)
+            {
+                obj.Position = new Vector3(obj.Position.X, obj.Position.Y, obj.Position.Z + 0.001f);
+                DrawGameObject(obj);
             }
 
             base.Draw(gameTime);

@@ -25,7 +25,7 @@ namespace XELibrary
         private float cameraPitch = 0.0f;
         protected Vector3 movement = Vector3.Zero;
 
-        private const float spinRate = 30.0f;
+        private const float spinRate = 90.0f;
         private const float moveRate = 3.0f;
 
         private Vector3 cameraReferance = new Vector3(0.0f, 0.0f, -1.0f);
