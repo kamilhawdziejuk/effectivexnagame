@@ -41,6 +41,11 @@ namespace GameXna
         /// </summary>
         private InputHandler input;
 
+        /// <summary>
+        /// Component ---> Sount
+        /// </summary>
+        private SoundManager sound;
+
         #endregion
 
         #region --- Private fields ---
@@ -86,6 +91,9 @@ namespace GameXna
             camera = new FirstPersonCamera(this);
             Components.Add(camera);
 
+            this.sound = new SoundManager(this, "SoundManager");
+            Components.Add(sound);
+            //itd.
         }
 
         #endregion
@@ -116,6 +124,36 @@ namespace GameXna
         private void DrawGameObject(GameObject gameObject)
         {
             DrawModel(ref gameObject.Model, ref gameObject.World);
+        }
+
+        protected override void BeginRun()
+        {
+            base.BeginRun();
+
+        }
+
+        protected override bool BeginDraw()
+        {
+            return base.BeginDraw();
+        }
+
+        protected override void EndDraw()
+        {
+            base.EndDraw();
+        }
+        protected override void EndRun()
+        {
+            base.EndRun();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
+
+        protected override void UnloadGraphicsContent(bool unloadAllContent)
+        {
+            base.UnloadGraphicsContent(unloadAllContent);
         }
 
         private void DrawModel(ref Model m, ref Matrix world)
@@ -162,6 +200,11 @@ namespace GameXna
             }
         }
 
+        protected override void OnExiting(object sender, EventArgs args)
+        {
+            base.OnExiting(sender, args);
+        }
+
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -183,10 +226,23 @@ namespace GameXna
             {
                 this.Exit();
             }
+
+            Keys[] keys = input.KeyboardState.GetPressedKeys();
+            if (keys.Length > 0)
+            {
+                if (keys[0] == Keys.Space)
+                {
+                    sound.Play("Sound Effect - Laugh (Woman) 01");
+                }
+            }
+
+            //if (input.KeyboardState.
             // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
+
+     
 
         /// <summary>
         /// Initializates one basic effect

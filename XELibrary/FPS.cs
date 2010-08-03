@@ -40,6 +40,7 @@ namespace XELibrary
             base.Initialize();
         }
 
+
         /// <summary>
         /// Allows the game component to update itself.
         /// </summary>
@@ -49,6 +50,7 @@ namespace XELibrary
             // TODO: Add your update code here
             base.Update(gameTime);
         }
+
 
         public sealed override void Draw(GameTime gameTime)
         {
