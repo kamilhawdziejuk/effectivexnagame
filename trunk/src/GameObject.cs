@@ -17,6 +17,7 @@ namespace GameXna
         public Matrix World;
         public Matrix Scale;
         private string name = string.Empty;
+        public List<Texture2D> Textures = new List<Texture2D>();
 
         #region --- Constructing & destroying objects ---
 
@@ -43,6 +44,25 @@ namespace GameXna
                 return this.name;
             }
         }
+
+        #region --- Rotation ---
+
+        float rotation;
+
+        public float Rotation
+        {
+            get
+            {
+                return this.rotation;
+            }
+            set
+            {
+                this.rotation = value;
+            }
+        }
+
+        #endregion
+
 
         #region --- Position ---
 

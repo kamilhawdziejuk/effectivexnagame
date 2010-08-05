@@ -1,8 +1,16 @@
 Content\Textures\obraz.xnb
 Content\Textures\animeGirls.xnb
-Content\Models\BesballBat.xnb
-Content\Models\ClassicBike.xnb
-Content\Models\ford.xnb
+Content\Textures\zachod_slonca.xnb
+Content\Models\Helikopter\nhblack.xnb
+Content\Models\Helikopter\nhlhull1.xnb
+Content\Models\Helikopter\nhlhull2.xnb
+Content\Models\Helikopter\nhwhite.xnb
+Content\Models\Ford\ford.xnb
+Content\Models\Helikopter\helnwsm1.xnb
+Content\Models\Helikopter\NHBLACK_0.xnb
+Content\Models\Helikopter\NHWHITE_0.xnb
+Content\Models\Helikopter\NHLHULL1_0.xnb
+Content\Models\Helikopter\NHLHULL2_0.xnb
 Content\Sounds\SoundManager.xgs
 Content\Sounds\Wave Bank.xwb
 Content\Sounds\Sound Bank.xsb

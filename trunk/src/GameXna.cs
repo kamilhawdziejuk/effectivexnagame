@@ -50,11 +50,12 @@ namespace GameXna
 
         #region --- Private fields ---
 
-        private GameObjectsManager GameObjectManager;
+        public GameObjectsManager GameObjectManager;
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Texture2D texture;
         private Texture2D textureCenter;
+        private Matrix heliWorld;
 
         #endregion
 
@@ -116,7 +117,15 @@ namespace GameXna
                 Matrix.CreateRotationY(MathHelper.ToRadians(90.0f)) *
                 Matrix.CreateTranslation(new Vector3(0.5f, -0.5f, 0));
 
-            this.GameObjectManager.AddGameObject(new GameObject(null, carWorld, "car"));
+            heliWorld = Matrix.CreateScale(0.0025f) *
+                Matrix.CreateRotationY(MathHelper.ToRadians(90.0f)) *
+                Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) *
+                Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)) *
+                Matrix.CreateTranslation(new Vector3(0.5f, -0.5f, 0));
+
+            this.GameObjectManager.AddGameObject(new GameObject(null, carWorld, "ford"));
+            this.GameObjectManager.AddGameObject(new GameObject(null, heliWorld, "heli"));
+            this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("heli");
 
             base.Initialize();
         }
@@ -158,7 +167,8 @@ namespace GameXna
 
         private void DrawModel(ref Model m, ref Matrix world)
         {
-
+            if (m == null)
+                return;
             Matrix[] transforms = new Matrix[m.Bones.Count];
             m.CopyAbsoluteBoneTransformsTo(transforms);
             foreach (ModelMesh mesh in m.Meshes)
@@ -189,14 +199,22 @@ namespace GameXna
 
         protected override void LoadGraphicsContent(bool loadAllContent)
         {
-            texture = Content.Load<Texture2D>("Textures\\obraz");
-            this.textureCenter = Content.Load<Texture2D>("Textures\\animeGirls");
+            texture = Content.Load<Texture2D>("Textures\\zachod_slonca");
+            this.textureCenter = Content.Load<Texture2D>("Textures\\zachod_slonca");
             if (loadAllContent)
             {
                 // TODO: Load any ResourceManagementMode.Automatic content
-                //bikeModel = Content.Load<Model>("Models\\ClassicBike");
-                //bikeModel = Content.Load<Model>("Models\\BesballBat");
-                this.GameObjectManager.GetObject("car").Model = Content.Load<Model>("Models\\ford");
+                GameObject ford = this.GameObjectManager.GetObject("ford");
+                if (ford != null)
+                {
+                    ford.Model = Content.Load<Model>("Models\\Ford\\ford");                   
+                }
+
+                GameObject heli = this.GameObjectManager.GetObject("heli");
+                if (heli != null)
+                {
+                    heli.Model = Content.Load<Model>("Models\\Helikopter\\helnwsm1");
+                }
             }
         }
 
@@ -265,7 +283,7 @@ namespace GameXna
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
-            GraphicsDevice.Clear(Color.LightYellow);
+            GraphicsDevice.Clear(Color.DimGray);
 
             graphics.GraphicsDevice.VertexDeclaration = new
                     VertexDeclaration(graphics.GraphicsDevice,
@@ -300,10 +318,23 @@ namespace GameXna
                 effect.End();
             }
 
-            foreach (GameObject obj in this.GameObjectManager.GameObjects)
+            //ISROT = Identity, Scale, Rotation, Orbit, Translation
+
+            GameObject obj = this.GameObjectManager.ActiveObject;
+            
+            obj.Position = this.camera.cameraPosition + new Vector3(-0.5f,-0.2f,-1);
+            if (this.camera.lastCameraYaw != this.camera.cameraYaw)
             {
-                obj.Position = new Vector3(obj.Position.X, obj.Position.Y, obj.Position.Z + 0.001f);
-                DrawGameObject(obj);
+                obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
+                obj.World *=
+                    Matrix.CreateTranslation(-this.camera.cameraPosition) *
+                    Matrix.CreateRotationY(MathHelper.ToRadians(0.1f * obj.Rotation)) *
+                    Matrix.CreateTranslation(this.camera.cameraPosition);
+            }
+
+            foreach (GameObject obj0 in this.GameObjectManager.GameObjects)
+            {
+                DrawGameObject(obj0);
             }
 
             base.Draw(gameTime);

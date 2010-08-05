@@ -52,29 +52,53 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\BesballBat.x">
-      <Name>BesballBat</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\ClassicBike.x">
-      <Name>ClassicBike</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
+    <Compile Include="Sounds\SoundManager.xap">
+      <Name>SoundManager</Name>
+      <Importer>XactImporter</Importer>
+      <Processor>XactProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ford.x">
+    <Compile Include="Textures\zachod_slonca.jpg">
+      <Name>zachod_slonca</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Helikopter\nhblack.tga">
+      <Name>nhblack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Helikopter\nhlhull1.tga">
+      <Name>nhlhull1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Helikopter\nhlhull2.tga">
+      <Name>nhlhull2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Helikopter\nhwhite.tga">
+      <Name>nhwhite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Ford\ford.x">
       <Name>ford</Name>
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\SoundManager.xap">
-      <Name>SoundManager</Name>
-      <Importer>XactImporter</Importer>
-      <Processor>XactProcessor</Processor>
+    <Compile Include="Models\Helikopter\helnwsm1.x">
+      <Name>helnwsm1</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

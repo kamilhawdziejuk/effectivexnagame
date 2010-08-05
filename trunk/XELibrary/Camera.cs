@@ -21,8 +21,9 @@ namespace XELibrary
         private Matrix projection;
         private Matrix view;
 
-        private float cameraYaw = 0.0f;
-        private float cameraPitch = 0.0f;
+        public float cameraYaw = 0.0f;
+        public float lastCameraYaw = 0.0f;
+        public float cameraPitch = 0.0f;
         protected Vector3 movement = Vector3.Zero;
 
         private const float spinRate = 90.0f;
@@ -70,6 +71,7 @@ namespace XELibrary
         public override void  Update(GameTime gameTime)
         {
             float timeDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.lastCameraYaw = cameraYaw;
 #if !XBOX360
             if ((input.PreviousMouseState.X > input.MouseState.X) &&
             (input.MouseState.LeftButton == ButtonState.Pressed))
@@ -93,7 +95,6 @@ namespace XELibrary
                 cameraPitch -= (spinRate * timeDelta);
             }
 #endif
-
 
             if (input.KeyboardState.IsKeyDown(Keys.Left))
             {
@@ -139,6 +140,7 @@ namespace XELibrary
             if (movement != Vector3.Zero)
             {
                 Vector3.Transform(ref movement, ref rotationMatrix, out movement);
+                
                 cameraPosition += movement;
                 movement = Vector3.Zero;
             }
