@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline" xmlns:Graphics="Microsoft.Xna.Framework.Graphics" xmlns:Processors="Microsoft.Xna.Framework.Content.Pipeline.Processors">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
       <Source>Textures\obraz.jpg</Source>
@@ -20,64 +20,153 @@
       <Time>2010-07-19T21:09:34.7629547+02:00</Time>
     </Item>
     <Item>
-      <Source>Models\BesballBat.x</Source>
-      <Name>Models\BesballBat</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
+      <Source>Textures\zachod_slonca.jpg</Source>
+      <Name>Textures\zachod_slonca</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\BesballBat.xnb</Output>
-      <Time>2008-12-01T15:44:52+01:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Models\BesballBat_0.xml</Key>
-        <Value>2010-08-03T21:14:09.2370042+02:00</Value>
-      </Dependency>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Textures\zachod_slonca.xnb</Output>
+      <Time>2010-08-04T19:42:02.1824386+02:00</Time>
     </Item>
     <Item>
-      <Source>Models\ClassicBike.x</Source>
-      <Name>Models\ClassicBike</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
+      <Source>Models\Helikopter\nhblack.tga</Source>
+      <Name>Models\Helikopter\nhblack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\ClassicBike.xnb</Output>
-      <Time>2010-07-25T20:39:22.2603293+02:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Models\ClassicBike_0.xml</Key>
-        <Value>2010-08-03T21:14:10.5830812+02:00</Value>
-      </Dependency>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\nhblack.xnb</Output>
+      <Time>2002-05-06T18:11:10+02:00</Time>
     </Item>
     <Item>
-      <Source>Models\ford.x</Source>
-      <Name>Models\ford</Name>
+      <Source>Models\Helikopter\nhlhull1.tga</Source>
+      <Name>Models\Helikopter\nhlhull1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\nhlhull1.xnb</Output>
+      <Time>2002-05-06T18:11:10+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Helikopter\nhlhull2.tga</Source>
+      <Name>Models\Helikopter\nhlhull2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\nhlhull2.xnb</Output>
+      <Time>2002-05-06T18:11:10+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Helikopter\nhwhite.tga</Source>
+      <Name>Models\Helikopter\nhwhite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\nhwhite.xnb</Output>
+      <Time>2002-05-06T18:11:12+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Ford\ford.x</Source>
+      <Name>Models\Ford\ford</Name>
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\ford.xnb</Output>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Ford\ford.xnb</Output>
       <Time>2010-07-26T18:43:59.4892622+02:00</Time>
       <Dependency>
-        <Key>obj\x86\Debug\Models\ford_0.xml</Key>
-        <Value>2010-08-03T21:14:11.1131115+02:00</Value>
+        <Key>obj\x86\Debug\Models\Ford\ford_0.xml</Key>
+        <Value>2010-08-05T21:43:28.8693818+02:00</Value>
       </Dependency>
     </Item>
     <Item>
-      <Source>Models\BesballBat.x</Source>
+      <Source>Models\Helikopter\helnwsm1.x</Source>
+      <Name>Models\Helikopter\helnwsm1</Name>
       <Importer>XImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Models\BesballBat_0.xml</Output>
-      <Time>2008-12-01T15:44:52+01:00</Time>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\helnwsm1.xnb</Output>
+      <Time>2010-08-05T21:42:28.1629096+02:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Helikopter\helnwsm1_0.xml</Key>
+        <Value>2010-08-05T21:43:29.3034067+02:00</Value>
+      </Dependency>
+      <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\NHBLACK_0.xnb</Request>
+      <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\NHWHITE_0.xnb</Request>
+      <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\NHLHULL1_0.xnb</Request>
+      <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\NHLHULL2_0.xnb</Request>
     </Item>
     <Item>
-      <Source>Models\ClassicBike.x</Source>
+      <Source>Models\Ford\ford.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Models\ClassicBike_0.xml</Output>
-      <Time>2010-07-25T20:39:22.2603293+02:00</Time>
-    </Item>
-    <Item>
-      <Source>Models\ford.x</Source>
-      <Importer>XImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Models\ford_0.xml</Output>
+      <Output>obj\x86\Debug\Models\Ford\ford_0.xml</Output>
       <Time>2010-07-26T18:43:59.4892622+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Helikopter\helnwsm1.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Helikopter\helnwsm1_0.xml</Output>
+      <Time>2010-08-05T21:42:28.1629096+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Helikopter\NHBLACK.TGA</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\NHBLACK_0.xnb</Output>
+      <Time>2002-05-06T18:11:10+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Helikopter\NHWHITE.TGA</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\NHWHITE_0.xnb</Output>
+      <Time>2002-05-06T18:11:12+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Helikopter\NHLHULL1.TGA</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\NHLHULL1_0.xnb</Output>
+      <Time>2002-05-06T18:11:10+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Helikopter\NHLHULL2.TGA</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\NHLHULL2_0.xnb</Output>
+      <Time>2002-05-06T18:11:10+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

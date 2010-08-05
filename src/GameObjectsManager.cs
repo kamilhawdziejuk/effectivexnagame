@@ -7,7 +7,22 @@ namespace GameXna
 {
     public class GameObjectsManager
     {
+
         List<GameObject> gameObjects = new List<GameObject>();
+
+        public GameObject activeObject = null;
+
+        public GameObject ActiveObject
+        {
+            get
+            {
+                return this.activeObject;
+            }
+            set
+            {
+                this.activeObject = value;
+            }
+        }
 
         public List<GameObject> GameObjects
         {
