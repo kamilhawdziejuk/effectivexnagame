@@ -250,11 +250,19 @@ namespace GameXna
             {
                 if (keys[0] == Keys.C)
                 {
-                    this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("car");
+                    if (this.GameObjectManager.ActiveObject != this.GameObjectManager.GetObject("car"))
+                    {
+                        this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("car");
+                        this.sound.StopAll();
+                    }
                 }
                 else if (keys[0] == Keys.H)
                 {
-                    this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("heli");
+                    if (this.GameObjectManager.ActiveObject != this.GameObjectManager.GetObject("heli"))
+                    {
+                        this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("heli");
+                        this.sound.StopAll();
+                    }
                 }
             }
             // TODO: Add your update logic here
