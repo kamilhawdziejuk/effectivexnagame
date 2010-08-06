@@ -107,23 +107,23 @@ namespace GameXna
         /// </summary>
         protected override void Initialize()
         {
-            this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-1, 0.8f, 0), new Vector3(1, -0.8f, 0), new Vector3(-1, -0.8f, 0));
-            this.rectangleRight = new global::GameXna.Figures.Rectangle(new Vector3(1.7f, -0.8f, -1), new Vector3(2.0f, 0.8f, 1));
-            this.rectangleLeft = new global::GameXna.Figures.Rectangle(new Vector3(-2.0f, -0.8f, 1), new Vector3(-1.7f, 0.8f, -1));
-            this.rectangleCenter = new global::GameXna.Figures.Rectangle(new Vector3(-1.7f, -0.8f, -1), new Vector3(1.7f, 0.8f, -1));
+            this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-2, 0.8f, 0), new Vector3(2, -0.8f, 0), new Vector3(-2, -0.8f, 0));
+            this.rectangleRight = new global::GameXna.Figures.Rectangle(new Vector3(2.7f, -0.8f, -2), new Vector3(3.0f, 0.8f, 2));
+            this.rectangleLeft = new global::GameXna.Figures.Rectangle(new Vector3(-3.0f, -0.8f, 2), new Vector3(-2.7f, 0.8f, -2));
+            this.rectangleCenter = new global::GameXna.Figures.Rectangle(new Vector3(-2.7f, -0.8f, -2), new Vector3(2.7f, 0.8f, -2));
 
             Matrix carWorld = Matrix.CreateScale(0.0015f) * 
                 Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) *
-                Matrix.CreateRotationY(MathHelper.ToRadians(90.0f)) *
-                Matrix.CreateTranslation(new Vector3(0.5f, -0.5f, 0));
+                Matrix.CreateRotationY(MathHelper.ToRadians(-90.0f)) *
+                Matrix.CreateTranslation(new Vector3(0.5f, -0.5f, -0.5f));
 
             heliWorld = Matrix.CreateScale(0.0025f) *
                 Matrix.CreateRotationY(MathHelper.ToRadians(90.0f)) *
                 Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) *
                 Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)) *
-                Matrix.CreateTranslation(new Vector3(0.5f, -0.5f, 0));
+                Matrix.CreateTranslation(new Vector3(0.5f, 0.2f, 0));
 
-            this.GameObjectManager.AddGameObject(new GameObject(null, carWorld, "ford"));
+            this.GameObjectManager.AddGameObject(new GameObject(null, carWorld, "car"));
             this.GameObjectManager.AddGameObject(new GameObject(null, heliWorld, "heli"));
             this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("heli");
 
@@ -204,7 +204,7 @@ namespace GameXna
             if (loadAllContent)
             {
                 // TODO: Load any ResourceManagementMode.Automatic content
-                GameObject ford = this.GameObjectManager.GetObject("ford");
+                GameObject ford = this.GameObjectManager.GetObject("car");
                 if (ford != null)
                 {
                     ford.Model = Content.Load<Model>("Models\\Ford\\ford");                   
@@ -248,13 +248,15 @@ namespace GameXna
             Keys[] keys = input.KeyboardState.GetPressedKeys();
             if (keys.Length > 0)
             {
-                if (keys[0] == Keys.Space)
+                if (keys[0] == Keys.C)
                 {
-                    sound.Play("Sound Effect - Laugh (Woman) 01");
+                    this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("car");
+                }
+                else if (keys[0] == Keys.H)
+                {
+                    this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("heli");
                 }
             }
-
-            //if (input.KeyboardState.
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -322,14 +324,28 @@ namespace GameXna
 
             GameObject obj = this.GameObjectManager.ActiveObject;
             
-            obj.Position = this.camera.cameraPosition + new Vector3(-0.5f,-0.2f,-1);
+            obj.Position = this.camera.cameraPosition + new Vector3(-0.5f,-0.1f,-1);
             if (this.camera.lastCameraYaw != this.camera.cameraYaw)
             {
                 obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
                 obj.World *=
                     Matrix.CreateTranslation(-this.camera.cameraPosition) *
-                    Matrix.CreateRotationY(MathHelper.ToRadians(0.1f * obj.Rotation)) *
+                    Matrix.CreateRotationY(MathHelper.ToRadians(1f * obj.Rotation)) *
                     Matrix.CreateTranslation(this.camera.cameraPosition);
+
+
+                
+            }
+            if (this.camera.lastCameraPosition != this.camera.cameraPosition)
+            {
+                if (this.GameObjectManager.GetObject("heli") == this.GameObjectManager.ActiveObject)
+                {
+                    sound.Play("helis");
+                }
+                else
+                {
+                    sound.Play("car");
+                }
             }
 
             foreach (GameObject obj0 in this.GameObjectManager.GameObjects)
