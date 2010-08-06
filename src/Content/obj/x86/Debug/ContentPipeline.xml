@@ -74,7 +74,7 @@
       <Time>2010-07-26T18:43:59.4892622+02:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Ford\ford_0.xml</Key>
-        <Value>2010-08-05T21:43:28.8693818+02:00</Value>
+        <Value>2010-08-06T21:46:28.7227374+02:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -87,7 +87,7 @@
       <Time>2010-08-05T21:42:28.1629096+02:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Helikopter\helnwsm1_0.xml</Key>
-        <Value>2010-08-05T21:43:29.3034067+02:00</Value>
+        <Value>2010-08-06T21:46:29.3237718+02:00</Value>
       </Dependency>
       <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\NHBLACK_0.xnb</Request>
       <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Debug\Content\Models\Helikopter\NHWHITE_0.xnb</Request>
