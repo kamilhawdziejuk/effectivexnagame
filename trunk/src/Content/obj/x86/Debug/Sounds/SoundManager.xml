@@ -9,67 +9,38 @@
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = &lt;none&gt;;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 0;
-    PC Bank Last Modified High = 0;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 841048164;
-    Bank Last Revised High = 30094146;
+    Bank Last Revised Low = 2904895908;
+    Bank Last Revised High = 30094747;
 
     Wave
     {
-        Name = Sound Effect - Ahhh 01;
-        File = Win\Sound Effect - Ahhh 01.wav;
-        Build Settings Last Modified Low = 3578782943;
-        Build Settings Last Modified High = 30094141;
+        Name = helis;
+        File = Win\helis.wav;
+        Build Settings Last Modified Low = 1922354279;
+        Build Settings Last Modified High = 30094732;
 
         Cache
         {
             Format Tag = 0;
             Channels = 1;
-            Sampling Rate = 22050;
+            Sampling Rate = 8000;
             Bits Per Sample = 0;
             Play Region Offset = 44;
-            Play Region Length = 21147;
+            Play Region Length = 26422;
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3042448646;
-            Last Modified High = 30094131;
+            Last Modified Low = 1724142942;
+            Last Modified High = 30094732;
         }
     }
 
     Wave
     {
-        Name = Sound Effect - Ahhh 02;
-        File = Win\Sound Effect - Ahhh 02.wav;
-        Build Settings Last Modified Low = 3578782943;
-        Build Settings Last Modified High = 30094141;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 1;
-            Sampling Rate = 22050;
-            Bits Per Sample = 0;
-            Play Region Offset = 44;
-            Play Region Length = 19083;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 3086211149;
-            Last Modified High = 30094131;
-        }
-    }
-
-    Wave
-    {
-        Name = Sound Effect - Kiss 03;
-        File = Win\Sound Effect - Kiss 03.wav;
-        Build Settings Last Modified Low = 3594053817;
-        Build Settings Last Modified High = 30094141;
+        Name = car;
+        File = Win\car.wav;
+        Build Settings Last Modified Low = 1333997351;
+        Build Settings Last Modified High = 30094734;
 
         Cache
         {
@@ -78,81 +49,12 @@
             Sampling Rate = 11025;
             Bits Per Sample = 0;
             Play Region Offset = 44;
-            Play Region Length = 6585;
+            Play Region Length = 66124;
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2263374086;
-            Last Modified High = 30094131;
-        }
-    }
-
-    Wave
-    {
-        Name = Sound Effect - Laugh (Man) 01;
-        File = Win\Sound Effect - Laugh (Man) 01.wav;
-        Build Settings Last Modified Low = 3594063817;
-        Build Settings Last Modified High = 30094141;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 1;
-            Sampling Rate = 22050;
-            Bits Per Sample = 0;
-            Play Region Offset = 44;
-            Play Region Length = 43209;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 2309736737;
-            Last Modified High = 30094131;
-        }
-    }
-
-    Wave
-    {
-        Name = Sound Effect - Laugh (Woman) 01;
-        File = Win\Sound Effect - Laugh (Woman) 01.wav;
-        Build Settings Last Modified Low = 3594073818;
-        Build Settings Last Modified High = 30094141;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 1;
-            Sampling Rate = 22050;
-            Bits Per Sample = 0;
-            Play Region Offset = 44;
-            Play Region Length = 21352;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 2355999383;
-            Last Modified High = 30094131;
-        }
-    }
-
-    Wave
-    {
-        Name = csuck;
-        File = Win\csuck.wav;
-        Build Settings Last Modified Low = 4001805501;
-        Build Settings Last Modified High = 30094142;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 1;
-            Sampling Rate = 11025;
-            Bits Per Sample = 0;
-            Play Region Offset = 44;
-            Play Region Length = 26555;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 611794534;
-            Last Modified High = 30094128;
+            Last Modified Low = 904712797;
+            Last Modified High = 30094734;
         }
     }
 }

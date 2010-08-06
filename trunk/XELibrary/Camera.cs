@@ -16,6 +16,7 @@ namespace XELibrary
         private GraphicsDeviceManager graphics;
 
         public Vector3 cameraPosition = new Vector3(0.0f, 0.0f, 3.0f);
+        public Vector3 lastCameraPosition;
         public Vector3 cameraTarget = Vector3.Zero;
         public Vector3 cameraUpVector = Vector3.Up;
         private Matrix projection;
@@ -137,6 +138,7 @@ namespace XELibrary
             Matrix rotationMatrix;
             Vector3 transformedReference;
             Matrix.CreateRotationY(MathHelper.ToRadians(cameraYaw), out rotationMatrix);
+            lastCameraPosition = cameraPosition;
             if (movement != Vector3.Zero)
             {
                 Vector3.Transform(ref movement, ref rotationMatrix, out movement);

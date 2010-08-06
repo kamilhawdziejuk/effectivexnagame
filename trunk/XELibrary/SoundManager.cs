@@ -129,6 +129,7 @@ namespace XELibrary
                 //store our cue if we were playing
                 if (cues[cueName].IsPlaying)
                     prevCue = cues[cueName];
+                else
                 cues[cueName] = soundBank.GetCue(cueName);
             }
             //if we weren’t playing, set previous to our current cue name
@@ -136,6 +137,7 @@ namespace XELibrary
                 prevCue = cues[cueName];
             try
             {
+                if (!cues[cueName].IsPlaying)
                 cues[cueName].Play();
             }
             catch (InstancePlayLimitException)
