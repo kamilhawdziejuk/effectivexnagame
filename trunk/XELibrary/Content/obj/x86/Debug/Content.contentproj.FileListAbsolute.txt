@@ -1,2 +1,1 @@
 D:\xna_programming\effectivexnagame\trunk\XELibrary\Content\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\Content\obj\x86\Debug\ResolveAssemblyReference.cache

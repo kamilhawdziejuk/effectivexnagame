@@ -1,13 +1,13 @@
-﻿using System;
+﻿//08-07-2010
+//Kamil Hawdziejuk
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace XELibrary
 {
-    public class SoundManager : Microsoft.Xna.Framework.GameComponent
+    public class SoundManager : GameComponent
     {
         public bool RepeatPlayList = true;
         private AudioEngine engine;

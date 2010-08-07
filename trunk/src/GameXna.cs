@@ -4,18 +4,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Net;
-using Microsoft.Xna.Framework.Storage;
 using XELibrary;
-using StillDesign;
 
 namespace GameXna
 {
@@ -42,15 +35,19 @@ namespace GameXna
         private InputHandler input;
 
         /// <summary>
-        /// Component ---> Sount
+        /// Component ---> Sound
         /// </summary>
         private SoundManager sound;
+
+        /// <summary>
+        /// Component ---> objects
+        /// </summary>
+        private GameObjectsManager objects;
 
         #endregion
 
         #region --- Private fields ---
 
-        public GameObjectsManager GameObjectManager;
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Texture2D texture;
@@ -79,7 +76,6 @@ namespace GameXna
         {
             this.graphics = new GraphicsDeviceManager(this);
             this.Content = new ContentManager(Services);
-            this.GameObjectManager = new GameObjectsManager();
 
             Content.RootDirectory = "Content";
 #if DEBUG
@@ -92,9 +88,11 @@ namespace GameXna
             camera = new FirstPersonCamera(this);
             Components.Add(camera);
 
-            this.sound = new SoundManager(this, "SoundManager");
+            sound = new SoundManager(this, "SoundManager");
             Components.Add(sound);
-            //itd.
+
+            objects = new GameObjectsManager(this);
+            Components.Add(objects);
         }
 
         #endregion
@@ -123,49 +121,28 @@ namespace GameXna
                 Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)) *
                 Matrix.CreateTranslation(new Vector3(0.5f, 0.2f, 0));
 
-            this.GameObjectManager.AddGameObject(new GameObject(null, carWorld, "car"));
-            this.GameObjectManager.AddGameObject(new GameObject(null, heliWorld, "heli"));
-            this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("heli");
+            objects.Add(new GameObject(null, carWorld, "car"));
+            objects.Add(new GameObject(null, heliWorld, "heli"));
+            objects.ActiveObject = objects.Get("heli");
 
             base.Initialize();
         }
 
+        /// <summary>
+        /// Drawing a game object
+        /// </summary>
+        /// <param name="gameObject"></param>
         private void DrawGameObject(GameObject gameObject)
         {
             DrawModel(ref gameObject.Model, ref gameObject.World);
         }
 
-        protected override void BeginRun()
-        {
-            base.BeginRun();
-
-        }
-
-        protected override bool BeginDraw()
-        {
-            return base.BeginDraw();
-        }
-
-        protected override void EndDraw()
-        {
-            base.EndDraw();
-        }
-        protected override void EndRun()
-        {
-            base.EndRun();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
-
-        protected override void UnloadGraphicsContent(bool unloadAllContent)
-        {
-            base.UnloadGraphicsContent(unloadAllContent);
-        }
-
-        private void DrawModel(ref Model m, ref Matrix world)
+        /// <summary>
+        /// Draw model
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="world"></param>
+        public void DrawModel(ref Model m, ref Matrix world)
         {
             if (m == null)
                 return;
@@ -196,7 +173,7 @@ namespace GameXna
             // TODO: use this.Content to load your game content here
         }
         
-
+        [Obsolete]
         protected override void LoadGraphicsContent(bool loadAllContent)
         {
             texture = Content.Load<Texture2D>("Textures\\zachod_slonca");
@@ -204,13 +181,13 @@ namespace GameXna
             if (loadAllContent)
             {
                 // TODO: Load any ResourceManagementMode.Automatic content
-                GameObject ford = this.GameObjectManager.GetObject("car");
+                GameObject ford = objects.Get("car");
                 if (ford != null)
                 {
                     ford.Model = Content.Load<Model>("Models\\Ford\\ford");                   
                 }
 
-                GameObject heli = this.GameObjectManager.GetObject("heli");
+                GameObject heli = objects.Get("heli");
                 if (heli != null)
                 {
                     heli.Model = Content.Load<Model>("Models\\Helikopter\\helnwsm1");
@@ -250,17 +227,17 @@ namespace GameXna
             {
                 if (keys[0] == Keys.C)
                 {
-                    if (this.GameObjectManager.ActiveObject != this.GameObjectManager.GetObject("car"))
+                    if (objects.ActiveObject != objects.Get("car"))
                     {
-                        this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("car");
+                        objects.ActiveObject = objects.Get("car");
                         this.sound.StopAll();
                     }
                 }
                 else if (keys[0] == Keys.H)
                 {
-                    if (this.GameObjectManager.ActiveObject != this.GameObjectManager.GetObject("heli"))
+                    if (objects.ActiveObject != objects.Get("heli"))
                     {
-                        this.GameObjectManager.ActiveObject = this.GameObjectManager.GetObject("heli");
+                        objects.ActiveObject = objects.Get("heli");
                         this.sound.StopAll();
                     }
                 }
@@ -269,8 +246,6 @@ namespace GameXna
 
             base.Update(gameTime);
         }
-
-     
 
         /// <summary>
         /// Initializates one basic effect
@@ -329,24 +304,19 @@ namespace GameXna
             }
 
             //ISROT = Identity, Scale, Rotation, Orbit, Translation
-
-            GameObject obj = this.GameObjectManager.ActiveObject;
-            
+            GameObject obj = objects.ActiveObject;
             obj.Position = this.camera.cameraPosition + new Vector3(-0.5f,-0.1f,-1);
             if (this.camera.lastCameraYaw != this.camera.cameraYaw)
             {
                 obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
                 obj.World *=
                     Matrix.CreateTranslation(-this.camera.cameraPosition) *
-                    Matrix.CreateRotationY(MathHelper.ToRadians(1f * obj.Rotation)) *
-                    Matrix.CreateTranslation(this.camera.cameraPosition);
-
-
-                
+                    Matrix.CreateRotationY(MathHelper.ToRadians(obj.Rotation)) *
+                    Matrix.CreateTranslation(this.camera.cameraPosition);   
             }
             if (this.camera.lastCameraPosition != this.camera.cameraPosition)
             {
-                if (this.GameObjectManager.GetObject("heli") == this.GameObjectManager.ActiveObject)
+                if (objects.Get("heli") == objects.ActiveObject)
                 {
                     sound.Play("helis");
                 }
@@ -356,7 +326,7 @@ namespace GameXna
                 }
             }
 
-            foreach (GameObject obj0 in this.GameObjectManager.GameObjects)
+            foreach (GameObject obj0 in objects.GameObjects)
             {
                 DrawGameObject(obj0);
             }
