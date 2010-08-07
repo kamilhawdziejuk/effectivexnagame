@@ -1,0 +1,6 @@
+D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\bin\x86\Release\XELibrary.dll
+D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\bin\x86\Release\XELibrary.pdb
+D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Release\ResolveAssemblyReference.cache
+D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Release\XELibrary.dll
+D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Release\XELibrary.pdb

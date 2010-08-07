@@ -45,13 +45,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\animeGirls.png">
-      <Name>animeGirls</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sounds\SoundManager.xap">
       <Name>SoundManager</Name>
       <Importer>XactImporter</Importer>
