@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using XELibrary;
+using Primitives3D;
 
 namespace GameXna
 {
@@ -43,6 +44,9 @@ namespace GameXna
         /// Component ---> objects
         /// </summary>
         private GameObjectsManager objects;
+        
+        ModelBone choopBone; //smiglo cz.1
+        ModelBone choopBone2; //smiglo cz.2
 
         #endregion
 
@@ -53,6 +57,21 @@ namespace GameXna
         private Texture2D texture;
         private Texture2D textureCenter;
         private Matrix heliWorld;
+        private float rot = 10f;
+        private Matrix choopRotation;
+        float total = 0f;
+
+
+       /* SkinnedSphere[] skinnedSpheres;
+        BoundingSphere[] boundingSpheres;
+
+        bool showSpheres;
+        SpherePrimitive spherePrimitive;
+
+        Model currentModel;
+        AnimationPlayer animationPlayer;
+        SkinningData skinningData;
+        Matrix[] boneTransforms;*/
 
         #endregion
 
@@ -105,21 +124,24 @@ namespace GameXna
         /// </summary>
         protected override void Initialize()
         {
-            this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-2, 0.8f, 0), new Vector3(2, -0.8f, 0), new Vector3(-2, -0.8f, 0));
-            this.rectangleRight = new global::GameXna.Figures.Rectangle(new Vector3(2.7f, -0.8f, -2), new Vector3(3.0f, 0.8f, 2));
-            this.rectangleLeft = new global::GameXna.Figures.Rectangle(new Vector3(-3.0f, -0.8f, 2), new Vector3(-2.7f, 0.8f, -2));
-            this.rectangleCenter = new global::GameXna.Figures.Rectangle(new Vector3(-2.7f, -0.8f, -2), new Vector3(2.7f, 0.8f, -2));
+
+
+            this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-2, 2.8f, 0), new Vector3(2, -0.8f, 0), new Vector3(-2, -0.8f, 0));
+            this.rectangleRight = new global::GameXna.Figures.Rectangle(new Vector3(2.7f, -0.8f, -2), new Vector3(3.0f, 2.8f, 2));
+            this.rectangleLeft = new global::GameXna.Figures.Rectangle(new Vector3(-3.0f, -0.8f, 2), new Vector3(-2.7f, 2.8f, -2));
+            this.rectangleCenter = new global::GameXna.Figures.Rectangle(new Vector3(-2.7f, -0.8f, -2), new Vector3(2.7f, 2.8f, -2));
 
             Matrix carWorld = Matrix.CreateScale(0.0015f) * 
                 Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) *
                 Matrix.CreateRotationY(MathHelper.ToRadians(-90.0f)) *
                 Matrix.CreateTranslation(new Vector3(0.5f, -0.5f, -0.5f));
 
+            float height = 0.2f;
             heliWorld = Matrix.CreateScale(0.0025f) *
                 Matrix.CreateRotationY(MathHelper.ToRadians(90.0f)) *
                 Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) *
                 Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)) *
-                Matrix.CreateTranslation(new Vector3(0.5f, 0.2f, 0));
+                Matrix.CreateTranslation(new Vector3(0.5f, height, 0));
 
             objects.Add(new GameObject(null, carWorld, "car"));
             objects.Add(new GameObject(null, heliWorld, "heli"));
@@ -148,6 +170,8 @@ namespace GameXna
                 return;
             Matrix[] transforms = new Matrix[m.Bones.Count];
             m.CopyAbsoluteBoneTransformsTo(transforms);
+
+           
             foreach (ModelMesh mesh in m.Meshes)
             {
                 foreach (BasicEffect be in mesh.Effects)
@@ -170,29 +194,49 @@ namespace GameXna
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-        }
-        
-        [Obsolete]
-        protected override void LoadGraphicsContent(bool loadAllContent)
-        {
-            texture = Content.Load<Texture2D>("Textures\\zachod_slonca");
-            this.textureCenter = Content.Load<Texture2D>("Textures\\zachod_slonca");
-            if (loadAllContent)
-            {
-                // TODO: Load any ResourceManagementMode.Automatic content
-                GameObject ford = objects.Get("car");
-                if (ford != null)
-                {
-                    ford.Model = Content.Load<Model>("Models\\Ford\\ford");                   
-                }
+            texture = Content.Load<Texture2D>("Textures\\wydmy");
+            this.textureCenter = Content.Load<Texture2D>("Textures\\wydmy");
 
-                GameObject heli = objects.Get("heli");
-                if (heli != null)
-                {
-                    heli.Model = Content.Load<Model>("Models\\Helikopter\\helnwsm1");
-                }
+            // TODO: Load any ResourceManagementMode.Automatic content
+            GameObject ford = objects.Get("car");
+            if (ford != null)
+            {
+                ford.Model = Content.Load<Model>("Models\\Ford\\ford");
+                //ford.Model = Content.Load<Model>("Models\\marry\\MerryChristmasGreen");
             }
+
+            GameObject heli = objects.Get("heli");
+            if (heli != null)
+            {
+                heli.Model = Content.Load<Model>("Models\\Helikopter\\helnwsm1");
+                this.choopBone = heli.Model.Bones[16]; //smiglo cz.1
+                this.choopBone2 = heli.Model.Bones[18]; //smiglo cz.2
+                this.choopRotation = choopBone.Transform;
+            }
+
+            // Load the model.
+            //currentModel = heli.Model;
+
+            // Look up our custom skinning information.
+            //skinningData = currentModel.Tag as SkinningData;
+
+            //if (skinningData == null)
+            //    throw new InvalidOperationException
+            //        ("This model does not contain a SkinningData tag.");
+
+            //boneTransforms = new Matrix[skinningData.BindPose.Count];
+
+            //// Create an animation player, and start decoding an animation clip.
+            //animationPlayer = new AnimationPlayer(skinningData);
+
+            //AnimationClip clip = skinningData.AnimationClips["Take 001"];
+
+            //animationPlayer.StartClip(clip);
+
+            //// Load the bounding spheres.
+            //skinnedSpheres = Content.Load<SkinnedSphere[]>("CollisionSpheres");
+            //boundingSpheres = new BoundingSphere[skinnedSpheres.Length];
+
         }
 
         protected override void OnExiting(object sender, EventArgs args)
@@ -242,6 +286,7 @@ namespace GameXna
                     }
                 }
             }
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -305,15 +350,31 @@ namespace GameXna
 
             //ISROT = Identity, Scale, Rotation, Orbit, Translation
             GameObject obj = objects.ActiveObject;
-            obj.Position = this.camera.cameraPosition + new Vector3(-0.5f,-0.1f,-1);
+
+            rot += 0.1f;
+
+            obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
+            Vector3 lastPosition = obj.Position;
+            Matrix yaw = Matrix.Identity;
+    
             if (this.camera.lastCameraYaw != this.camera.cameraYaw)
             {
                 obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
-                obj.World *=
-                    Matrix.CreateTranslation(-this.camera.cameraPosition) *
+                yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
                     Matrix.CreateRotationY(MathHelper.ToRadians(obj.Rotation)) *
-                    Matrix.CreateTranslation(this.camera.cameraPosition);   
+                    Matrix.CreateTranslation(this.camera.cameraPosition);
+                total += obj.Rotation;
+                obj.World *= yaw;
             }
+
+            //rotating the choop, with a correction include
+            Vector3 move = objects.ActiveObject.Position + /* -0.091f **/ new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float) Math.Cos(MathHelper.ToRadians(total)));
+            this.choopBone.Transform =
+                Matrix.CreateTranslation(-move) *
+                 Matrix.CreateRotationY(rot) *
+                Matrix.CreateTranslation(move);
+            this.choopBone2.Transform = this.choopBone.Transform;
+            //sound
             if (this.camera.lastCameraPosition != this.camera.cameraPosition)
             {
                 if (objects.Get("heli") == objects.ActiveObject)

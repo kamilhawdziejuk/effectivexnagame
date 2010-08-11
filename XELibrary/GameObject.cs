@@ -69,7 +69,8 @@ namespace GameXna
         {
             get
             {
-                return this.position;
+                //return this.position;
+                return this.World.Translation;
             }
             set
             {

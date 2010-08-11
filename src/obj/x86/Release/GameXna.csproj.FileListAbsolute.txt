@@ -1,0 +1,26 @@
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Textures\obraz.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Textures\zachod_slonca.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\nhblack.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\nhlhull1.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\nhlhull2.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\nhwhite.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Ford\ford.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\helnwsm1.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHBLACK_0.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHWHITE_0.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHLHULL1_0.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHLHULL2_0.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Sounds\SoundManager.xgs
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Sounds\Wave Bank.xwb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Sounds\Sound Bank.xsb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\GameXna.exe
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\GameXna.pdb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\StillDesign.PhysX.Net.dll
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\XELibrary.dll
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\StillDesign.PhysX.Net.pdb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\StillDesign.PhysX.Net.xml
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\XELibrary.pdb
+D:\programming\xna_programming\effectivexnagame\trunk\src\obj\x86\Release\ResolveAssemblyReference.cache
+D:\programming\xna_programming\effectivexnagame\trunk\src\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\programming\xna_programming\effectivexnagame\trunk\src\obj\x86\Release\GameXna.exe
+D:\programming\xna_programming\effectivexnagame\trunk\src\obj\x86\Release\GameXna.pdb

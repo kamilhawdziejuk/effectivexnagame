@@ -17,6 +17,8 @@ namespace XELibrary
         public Vector3 cameraUpVector = Vector3.Up;
         private Matrix projection;
         private Matrix view;
+        public double left;
+        public double right;
 
         public float cameraYaw = 0.0f;
         public float lastCameraYaw = 0.0f;
@@ -108,6 +110,22 @@ namespace XELibrary
             if (input.KeyboardState.IsKeyDown(Keys.Down))
             {
                 cameraPitch -= (spinRate * timeDelta);
+            }
+            if (input.KeyboardState.IsKeyDown(Keys.L))
+            {
+                this.left += 0.001f;
+            }
+            if (input.KeyboardState.IsKeyDown(Keys.P))
+            {
+                this.left -= 0.001f;
+            }
+            if (input.KeyboardState.IsKeyDown(Keys.O))
+            {
+                this.right += 0.001f;
+            }
+            if (input.KeyboardState.IsKeyDown(Keys.K))
+            {
+                this.right -= 0.001f;
             }
 
             if (cameraYaw > 360)
