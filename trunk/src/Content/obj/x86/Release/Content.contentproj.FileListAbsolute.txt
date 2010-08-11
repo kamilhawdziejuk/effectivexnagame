@@ -1,0 +1,2 @@
+D:\programming\xna_programming\effectivexnagame\trunk\src\Content\obj\x86\Release\ResolveAssemblyReference.cache
+D:\programming\xna_programming\effectivexnagame\trunk\src\Content\obj\x86\Release\Sounds\SoundManager.xml
