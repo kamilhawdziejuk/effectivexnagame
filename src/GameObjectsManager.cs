@@ -77,7 +77,6 @@ namespace GameXna
                 {
                     if (sphereCollisionDetector.DetectCollision(obj, this.activeObject, 0))
                     {
-                        //  break;
                     }
                 }
             }

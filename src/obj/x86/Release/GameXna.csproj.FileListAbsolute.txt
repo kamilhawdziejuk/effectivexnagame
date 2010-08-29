@@ -24,3 +24,4 @@ D:\programming\xna_programming\effectivexnagame\trunk\src\obj\x86\Release\Resolv
 D:\programming\xna_programming\effectivexnagame\trunk\src\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\programming\xna_programming\effectivexnagame\trunk\src\obj\x86\Release\GameXna.exe
 D:\programming\xna_programming\effectivexnagame\trunk\src\obj\x86\Release\GameXna.pdb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Textures\wydmy.xnb

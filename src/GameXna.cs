@@ -221,7 +221,7 @@ namespace GameXna
                 this.choopRotation = choopBone.Transform;   
             }
 
-            //this.skyboxModel = LoadModel("Skyboxes\\horizont1", out this.skyboxTextures);
+            this.skyboxModel = LoadModel("Skyboxes\\skybox", out this.skyboxTextures);
 
             // Load the model.
             //currentModel = heli.Model;
@@ -453,7 +453,7 @@ namespace GameXna
                 DrawGameObject(obj0);
             }
 
-            //this.DrawSkybox();
+            this.DrawSkybox();
             //this.skybox.Draw(camera.View, camera.Projection, yaw);
 
             base.Draw(gameTime);
