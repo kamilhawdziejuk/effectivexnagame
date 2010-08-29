@@ -4,9 +4,3 @@ D:\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Debug\ResolveAssembl
 D:\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Debug\XELibrary.dll
 D:\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Debug\XELibrary.pdb
-D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\bin\x86\Debug\XELibrary.dll
-D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\bin\x86\Debug\XELibrary.pdb
-D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Debug\XELibrary.dll
-D:\programming\xna_programming\effectivexnagame\trunk\XELibrary\obj\x86\Debug\XELibrary.pdb
