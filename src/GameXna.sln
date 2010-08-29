@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameXna", "GameXna.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XELibrary", "..\XELibrary\XELibrary.csproj", "{87BA987C-90E2-4CE7-BAF1-D791B684445E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyboxPipeline", "..\SkyboxPipeline\SkyboxPipeline.csproj", "{EA9E22E7-12FA-4C3A-BBCE-8117BB0E7F89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,14 +17,20 @@ Global
 		{BEC08D55-F74E-4133-B89A-C3E4982ED818}.Debug|x86.Build.0 = Debug|x86
 		{BEC08D55-F74E-4133-B89A-C3E4982ED818}.Release|x86.ActiveCfg = Release|x86
 		{BEC08D55-F74E-4133-B89A-C3E4982ED818}.Release|x86.Build.0 = Release|x86
-		{704E1109-EB1F-4E81-9A7D-F9E39627CE93}.Debug|x86.ActiveCfg = Debug|x86
-		{704E1109-EB1F-4E81-9A7D-F9E39627CE93}.Release|x86.ActiveCfg = Release|x86
 		{87BA987C-90E2-4CE7-BAF1-D791B684445E}.Debug|x86.ActiveCfg = Debug|x86
 		{87BA987C-90E2-4CE7-BAF1-D791B684445E}.Debug|x86.Build.0 = Debug|x86
 		{87BA987C-90E2-4CE7-BAF1-D791B684445E}.Release|x86.ActiveCfg = Release|x86
 		{87BA987C-90E2-4CE7-BAF1-D791B684445E}.Release|x86.Build.0 = Release|x86
+		{EA9E22E7-12FA-4C3A-BBCE-8117BB0E7F89}.Debug|x86.ActiveCfg = Debug|x86
+		{EA9E22E7-12FA-4C3A-BBCE-8117BB0E7F89}.Debug|x86.Build.0 = Debug|x86
+		{EA9E22E7-12FA-4C3A-BBCE-8117BB0E7F89}.Release|x86.ActiveCfg = Release|x86
+		{EA9E22E7-12FA-4C3A-BBCE-8117BB0E7F89}.Release|x86.Build.0 = Release|x86
+		{704E1109-EB1F-4E81-9A7D-F9E39627CE93}.Debug|x86.ActiveCfg = Debug|x86
+		{704E1109-EB1F-4E81-9A7D-F9E39627CE93}.Release|x86.ActiveCfg = Release|x86
 		{E5041441-CF00-478D-95CA-A2447BDCE158}.Debug|x86.ActiveCfg = Debug|x86
 		{E5041441-CF00-478D-95CA-A2447BDCE158}.Release|x86.ActiveCfg = Release|x86
+		{92822083-ADA6-483D-A8F3-400B1A3C40EE}.Debug|x86.ActiveCfg = Debug|x86
+		{92822083-ADA6-483D-A8F3-400B1A3C40EE}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
