@@ -159,6 +159,15 @@
       <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHLHULL2_0.xnb</Output>
       <Time>2002-05-06T18:11:10+02:00</Time>
     </Item>
+    <Item>
+      <Source>Textures\wydmy.jpg</Source>
+      <Name>Textures\wydmy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Textures\wydmy.xnb</Output>
+      <Time>2010-08-07T18:03:23.9719708+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

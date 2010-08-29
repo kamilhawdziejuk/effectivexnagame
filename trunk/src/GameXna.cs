@@ -57,9 +57,12 @@ namespace GameXna
         private Texture2D texture;
         private Texture2D textureCenter;
         private Matrix heliWorld;
-        private float rot = 10f;
+        private float rot = 200f;
         private Matrix choopRotation;
         float total = 0f;
+        private Skybox skybox;
+        Model skyboxModel;
+        Texture2D[] skyboxTextures;
 
 
        /* SkinnedSphere[] skinnedSpheres;
@@ -124,8 +127,6 @@ namespace GameXna
         /// </summary>
         protected override void Initialize()
         {
-
-
             this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-2, 2.8f, 0), new Vector3(2, -0.8f, 0), new Vector3(-2, -0.8f, 0));
             this.rectangleRight = new global::GameXna.Figures.Rectangle(new Vector3(2.7f, -0.8f, -2), new Vector3(3.0f, 2.8f, 2));
             this.rectangleLeft = new global::GameXna.Figures.Rectangle(new Vector3(-3.0f, -0.8f, 2), new Vector3(-2.7f, 2.8f, -2));
@@ -143,8 +144,12 @@ namespace GameXna
                 Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)) *
                 Matrix.CreateTranslation(new Vector3(0.5f, height, 0));
 
-            objects.Add(new GameObject(null, carWorld, "car"));
-            objects.Add(new GameObject(null, heliWorld, "heli"));
+            var car = new GameObject(null, carWorld, "car");
+            var heli = new GameObject(null, heliWorld, "heli");
+            car.Scale = 0.0015f;
+            heli.Scale = 0.0025f;
+            objects.Add(car);
+            objects.Add(heli);
             objects.ActiveObject = objects.Get("heli");
 
             base.Initialize();
@@ -202,7 +207,9 @@ namespace GameXna
             if (ford != null)
             {
                 ford.Model = Content.Load<Model>("Models\\Ford\\ford");
-                //ford.Model = Content.Load<Model>("Models\\marry\\MerryChristmasGreen");
+                //ford.Model = Content.Load<Model>("Skyboxes\\srefl");
+               // ford.Scale *= 0.001f;
+                //ford.Model = Content.Load<Model>(s"Models\\marry\\MerryChristmasGreen");
             }
 
             GameObject heli = objects.Get("heli");
@@ -211,8 +218,10 @@ namespace GameXna
                 heli.Model = Content.Load<Model>("Models\\Helikopter\\helnwsm1");
                 this.choopBone = heli.Model.Bones[16]; //smiglo cz.1
                 this.choopBone2 = heli.Model.Bones[18]; //smiglo cz.2
-                this.choopRotation = choopBone.Transform;
+                this.choopRotation = choopBone.Transform;   
             }
+
+            //this.skyboxModel = LoadModel("Skyboxes\\horizont1", out this.skyboxTextures);
 
             // Load the model.
             //currentModel = heli.Model;
@@ -236,8 +245,57 @@ namespace GameXna
             //// Load the bounding spheres.
             //skinnedSpheres = Content.Load<SkinnedSphere[]>("CollisionSpheres");
             //boundingSpheres = new BoundingSphere[skinnedSpheres.Length];
+            
 
         }
+
+        
+
+        private void DrawSkybox()
+        {
+            GraphicsDevice device = graphics.GraphicsDevice;
+            device.SamplerStates[0].AddressU = TextureAddressMode.Clamp;
+            device.SamplerStates[0].AddressV = TextureAddressMode.Clamp;
+
+            device.RenderState.DepthBufferWriteEnable = false;
+            Matrix[] skyboxTransforms = new Matrix[skyboxModel.Bones.Count];
+            skyboxModel.CopyAbsoluteBoneTransformsTo(skyboxTransforms);
+            int i = 0;
+            foreach (ModelMesh mesh in skyboxModel.Meshes)
+            {
+                foreach (Effect currentEffect in mesh.Effects)
+                {
+
+                    Matrix worldMatrix = skyboxTransforms[mesh.ParentBone.Index] *
+                          Matrix.CreateTranslation(29 * Vector3.UnitY);// *Matrix.CreateTranslation(xwingPosition);
+                        //currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
+                    currentEffect.Parameters["World"].SetValue(worldMatrix);
+                    currentEffect.Parameters["View"].SetValue(this.camera.View);
+                    currentEffect.Parameters["Projection"].SetValue(this.camera.Projection);
+                   // currentEffect.Parameters["BasicTexture"].SetValue(skyboxTextures[i++ % 7]);
+                }
+                mesh.Draw();
+            }
+            device.RenderState.DepthBufferWriteEnable = true;
+        }
+
+        private Model LoadModel(string assetName, out Texture2D[] textures)
+        {
+
+            Model newModel = Content.Load<Model>(assetName);
+            textures = new Texture2D[newModel.Meshes.Count];
+            int i = 0;
+            foreach (ModelMesh mesh in newModel.Meshes)
+                foreach (BasicEffect currentEffect in mesh.Effects)
+                    textures[i++] = currentEffect.Texture;
+
+            //foreach (ModelMesh mesh in newModel.Meshes)
+            //    foreach (ModelMeshPart meshPart in mesh.MeshParts)
+            //        meshPart.Effect = effect.Clone(graphics.GraphicsDevice);
+
+            return newModel;
+        }
+
 
         protected override void OnExiting(object sender, EventArgs args)
         {
@@ -331,9 +389,9 @@ namespace GameXna
             effectRectangleCenter.Texture = this.textureCenter;
 
             this.effects.Clear();
-            this.effects.Add(effectRectangleRight, this.rectangleRight);
-            this.effects.Add(effectRectangleLeft, this.rectangleLeft);
-            this.effects.Add(effectRectangleCenter, this.rectangleCenter);
+            //this.effects.Add(effectRectangleRight, this.rectangleRight);
+         //   this.effects.Add(effectRectangleLeft, this.rectangleLeft);
+          //  this.effects.Add(effectRectangleCenter, this.rectangleCenter);
 
             foreach (KeyValuePair<BasicEffect, Figures.VerticesIndicesFigure> kvp in this.effects)
             {
@@ -351,7 +409,7 @@ namespace GameXna
             //ISROT = Identity, Scale, Rotation, Orbit, Translation
             GameObject obj = objects.ActiveObject;
 
-            rot += 0.1f;
+            rot += 5.1f;
 
             obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
             Vector3 lastPosition = obj.Position;
@@ -367,12 +425,15 @@ namespace GameXna
                 obj.World *= yaw;
             }
 
-            //rotating the choop, with a correction include
-            Vector3 move = objects.ActiveObject.Position + /* -0.091f **/ new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float) Math.Cos(MathHelper.ToRadians(total)));
-            this.choopBone.Transform =
-                Matrix.CreateTranslation(-move) *
-                 Matrix.CreateRotationY(rot) *
-                Matrix.CreateTranslation(move);
+            if (objects.Get("heli") == objects.ActiveObject)
+            {
+                //rotating the choop, with a correction include
+                Vector3 move = objects.ActiveObject.Position + -0.091f * new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float)Math.Cos(MathHelper.ToRadians(total)));
+                this.choopBone.Transform =
+                    Matrix.CreateTranslation(-move) *
+                     Matrix.CreateRotationY(rot) *
+                    Matrix.CreateTranslation(move);
+            }
             this.choopBone2.Transform = this.choopBone.Transform;
             //sound
             if (this.camera.lastCameraPosition != this.camera.cameraPosition)
@@ -391,6 +452,9 @@ namespace GameXna
             {
                 DrawGameObject(obj0);
             }
+
+            //this.DrawSkybox();
+            //this.skybox.Draw(camera.View, camera.Projection, yaw);
 
             base.Draw(gameTime);
         }

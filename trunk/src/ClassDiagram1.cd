@@ -3,7 +3,7 @@
   <Class Name="GameXna.GameXna" Collapsed="true">
     <Position X="0.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AASAEEAEAhQAQwAACAAABQAUAQAEAhgAADAAAAAAAAQ=</HashCode>
+      <HashCode>AASAEEAAAhQAQwAACAAAFQAWAQAkIhgAAHAAAAAAAAQ=</HashCode>
       <FileName>GameXna.cs</FileName>
     </TypeIdentifier>
   </Class>
