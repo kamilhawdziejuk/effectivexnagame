@@ -56,6 +56,69 @@
       <Time>2002-05-06T18:11:12+02:00</Time>
     </Item>
     <Item>
+      <Source>Textures\wydmy.jpg</Source>
+      <Name>Textures\wydmy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Textures\wydmy.xnb</Output>
+      <Time>2010-08-07T18:03:23.9719708+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\skybox_back.JPG</Source>
+      <Name>Skyboxes\skybox_back</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox_back.xnb</Output>
+      <Time>2006-04-29T22:35:44+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\skybox_bottom.JPG</Source>
+      <Name>Skyboxes\skybox_bottom</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox_bottom.xnb</Output>
+      <Time>2006-11-18T12:05:58+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\skybox_front.JPG</Source>
+      <Name>Skyboxes\skybox_front</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox_front.xnb</Output>
+      <Time>2006-04-29T22:35:20+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\skybox_left.JPG</Source>
+      <Name>Skyboxes\skybox_left</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox_left.xnb</Output>
+      <Time>2006-04-29T22:35:08+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\skybox_right.JPG</Source>
+      <Name>Skyboxes\skybox_right</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox_right.xnb</Output>
+      <Time>2006-04-29T22:34:50+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\skybox_top.JPG</Source>
+      <Name>Skyboxes\skybox_top</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox_top.xnb</Output>
+      <Time>2006-04-29T22:34:26+02:00</Time>
+    </Item>
+    <Item>
       <Source>Models\Ford\ford.x</Source>
       <Name>Models\Ford\ford</Name>
       <Importer>XImporter</Importer>
@@ -65,7 +128,7 @@
       <Time>2010-07-26T18:43:59.4892622+02:00</Time>
       <Dependency>
         <Key>obj\x86\Release\Models\Ford\ford_0.xml</Key>
-        <Value>2010-08-07T14:09:24.482958+02:00</Value>
+        <Value>2010-08-29T23:16:37.7121931+02:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -78,12 +141,31 @@
       <Time>2010-08-05T21:42:28.1629096+02:00</Time>
       <Dependency>
         <Key>obj\x86\Release\Models\Helikopter\helnwsm1_0.xml</Key>
-        <Value>2010-08-07T14:09:24.9759862+02:00</Value>
+        <Value>2010-08-29T23:16:39.1182735+02:00</Value>
       </Dependency>
       <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHBLACK_0.xnb</Request>
       <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHWHITE_0.xnb</Request>
       <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHLHULL1_0.xnb</Request>
       <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHLHULL2_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Skyboxes\skybox.x</Source>
+      <Name>Skyboxes\skybox</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox.xnb</Output>
+      <Time>2010-08-29T23:01:17.6375679+02:00</Time>
+      <Dependency>
+        <Key>obj\x86\Release\Skyboxes\skybox_0.xml</Key>
+        <Value>2010-08-29T23:16:42.0004384+02:00</Value>
+      </Dependency>
+      <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Top_0.xnb</Request>
+      <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Right_0.xnb</Request>
+      <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Left_0.xnb</Request>
+      <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Front_0.xnb</Request>
+      <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Back_0.xnb</Request>
+      <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Bottom_0.xnb</Request>
     </Item>
     <Item>
       <Source>Models\Ford\ford.x</Source>
@@ -160,13 +242,101 @@
       <Time>2002-05-06T18:11:10+02:00</Time>
     </Item>
     <Item>
-      <Source>Textures\wydmy.jpg</Source>
-      <Name>Textures\wydmy</Name>
+      <Source>Skyboxes\skybox.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Release\Skyboxes\skybox_0.xml</Output>
+      <Time>2010-08-29T23:01:17.6375679+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\SkyBox_Top.jpg</Source>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
       <Options>None</Options>
-      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Textures\wydmy.xnb</Output>
-      <Time>2010-08-07T18:03:23.9719708+02:00</Time>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Top_0.xnb</Output>
+      <Time>2006-04-29T22:34:26+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\SkyBox_Right.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Right_0.xnb</Output>
+      <Time>2006-04-29T22:34:50+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\SkyBox_Left.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Left_0.xnb</Output>
+      <Time>2006-04-29T22:35:08+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\SkyBox_Front.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Front_0.xnb</Output>
+      <Time>2006-04-29T22:35:20+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\SkyBox_Back.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Back_0.xnb</Output>
+      <Time>2006-04-29T22:35:44+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Skyboxes\SkyBox_Bottom.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Bottom_0.xnb</Output>
+      <Time>2006-11-18T12:05:58+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

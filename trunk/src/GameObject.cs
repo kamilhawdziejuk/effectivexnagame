@@ -74,7 +74,7 @@ namespace GameXna
             }
             set
             {
-                Vector3 movement = value - this.position;
+                Vector3 movement = value - this.Position;
                 this.position = value;
                 this.World *= Matrix.CreateTranslation(movement);
             }
