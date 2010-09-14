@@ -144,12 +144,19 @@ namespace GameXna
                 Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)) *
                 Matrix.CreateTranslation(new Vector3(0.5f, height, 0));
 
+            Matrix fireWorld = Matrix.CreateScale(0.0005f) * Matrix.CreateTranslation(new Vector3(0.5f, 0.5f, 0));
+
             var car = new GameObject(null, carWorld, "car");
             var heli = new GameObject(null, heliWorld, "heli");
+            var fire = new GameObject(null, fireWorld, "fire");
+
             car.Scale = 0.0015f;
             heli.Scale = 0.0025f;
+            fire.Scale = 0.0005f;
+
             objects.Add(car);
             objects.Add(heli);
+            objects.Add(fire);
             objects.ActiveObject = objects.Get("heli");
 
             base.Initialize();
@@ -221,7 +228,17 @@ namespace GameXna
                 this.choopRotation = choopBone.Transform;   
             }
 
+            
+
+            GameObject fire = objects.Get("fire");
+            if (fire != null)
+            {
+                fire.Model = Content.Load<Model>("Models\\Pociski\\Zepplin");
+            }
+
             this.skyboxModel = LoadModel("Skyboxes\\skybox", out this.skyboxTextures);
+            //GameObject fire = obje
+
 
             // Load the model.
             //currentModel = heli.Model;
@@ -318,6 +335,7 @@ namespace GameXna
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
@@ -345,8 +363,60 @@ namespace GameXna
                 }
             }
 
-            // TODO: Add your update logic here
+            //ISROT = Identity, Scale, Rotation, Orbit, Translation
+            GameObject obj = objects.ActiveObject;
 
+            rot += 5.1f;
+
+            obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
+            Vector3 lastPosition = obj.Position;
+            Matrix yaw = Matrix.Identity;
+
+            if (this.camera.lastCameraYaw != this.camera.cameraYaw)
+            {
+                obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
+                yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
+                    Matrix.CreateRotationY(MathHelper.ToRadians(obj.Rotation)) *
+                    Matrix.CreateTranslation(this.camera.cameraPosition);
+                total += obj.Rotation;
+                obj.World *= yaw;
+            }
+
+            if (objects.Get("heli") == objects.ActiveObject)
+            {
+                //rotating the choop, with a correction include
+                Vector3 move = objects.ActiveObject.Position + -0.091f * new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float)Math.Cos(MathHelper.ToRadians(total)));
+                this.choopBone.Transform =
+                    Matrix.CreateTranslation(-move) *
+                     Matrix.CreateRotationY(rot) *
+                    Matrix.CreateTranslation(move);
+            }
+            this.choopBone2.Transform = this.choopBone.Transform;
+            //sound
+            if (this.camera.lastCameraPosition != this.camera.cameraPosition)
+            {
+                if (objects.Get("heli") == objects.ActiveObject)
+                {
+                    sound.Play("helis");
+                }
+                else
+                {
+                    sound.Play("car");
+                }
+            }
+
+
+            if (this.input.MouseState.LeftButton == ButtonState.Pressed)
+            {
+                GameObject fire = objects.Get("fire");
+                if (fire != null)
+                {
+                    fire.Position += new Vector3(0, 0, -0.1f);
+                }
+            }
+
+
+            // TODO: Add your update logic here
             base.Update(gameTime);
         }
 
@@ -406,47 +476,7 @@ namespace GameXna
                 effect.End();
             }
 
-            //ISROT = Identity, Scale, Rotation, Orbit, Translation
-            GameObject obj = objects.ActiveObject;
-
-            rot += 5.1f;
-
-            obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
-            Vector3 lastPosition = obj.Position;
-            Matrix yaw = Matrix.Identity;
-    
-            if (this.camera.lastCameraYaw != this.camera.cameraYaw)
-            {
-                obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
-                yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
-                    Matrix.CreateRotationY(MathHelper.ToRadians(obj.Rotation)) *
-                    Matrix.CreateTranslation(this.camera.cameraPosition);
-                total += obj.Rotation;
-                obj.World *= yaw;
-            }
-
-            if (objects.Get("heli") == objects.ActiveObject)
-            {
-                //rotating the choop, with a correction include
-                Vector3 move = objects.ActiveObject.Position + -0.091f * new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float)Math.Cos(MathHelper.ToRadians(total)));
-                this.choopBone.Transform =
-                    Matrix.CreateTranslation(-move) *
-                     Matrix.CreateRotationY(rot) *
-                    Matrix.CreateTranslation(move);
-            }
-            this.choopBone2.Transform = this.choopBone.Transform;
-            //sound
-            if (this.camera.lastCameraPosition != this.camera.cameraPosition)
-            {
-                if (objects.Get("heli") == objects.ActiveObject)
-                {
-                    sound.Play("helis");
-                }
-                else
-                {
-                    sound.Play("car");
-                }
-            }
+        
 
             foreach (GameObject obj0 in objects.GameObjects)
             {

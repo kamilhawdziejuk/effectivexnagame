@@ -4,13 +4,26 @@ Content\Models\Helikopter\nhblack.xnb
 Content\Models\Helikopter\nhlhull1.xnb
 Content\Models\Helikopter\nhlhull2.xnb
 Content\Models\Helikopter\nhwhite.xnb
+Content\Textures\wydmy.xnb
+Content\Skyboxes\skybox_back.xnb
+Content\Skyboxes\skybox_bottom.xnb
+Content\Skyboxes\skybox_front.xnb
+Content\Skyboxes\skybox_left.xnb
+Content\Skyboxes\skybox_right.xnb
+Content\Skyboxes\skybox_top.xnb
 Content\Models\Ford\ford.xnb
 Content\Models\Helikopter\helnwsm1.xnb
+Content\Skyboxes\skybox.xnb
 Content\Models\Helikopter\NHBLACK_0.xnb
 Content\Models\Helikopter\NHWHITE_0.xnb
 Content\Models\Helikopter\NHLHULL1_0.xnb
 Content\Models\Helikopter\NHLHULL2_0.xnb
-Content\Textures\wydmy.xnb
+Content\Skyboxes\SkyBox_Top_0.xnb
+Content\Skyboxes\SkyBox_Right_0.xnb
+Content\Skyboxes\SkyBox_Left_0.xnb
+Content\Skyboxes\SkyBox_Front_0.xnb
+Content\Skyboxes\SkyBox_Back_0.xnb
+Content\Skyboxes\SkyBox_Bottom_0.xnb
 Content\Sounds\SoundManager.xgs
 Content\Sounds\Wave Bank.xwb
 Content\Sounds\Sound Bank.xsb

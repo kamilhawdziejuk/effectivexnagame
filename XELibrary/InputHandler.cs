@@ -43,6 +43,8 @@ namespace XELibrary
 #if !XBOX360
             prevMouseState = mouseState;
             mouseState = Mouse.GetState();
+
+            
 #endif
             base.Update(gameTime);
         }

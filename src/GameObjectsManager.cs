@@ -12,6 +12,7 @@ namespace GameXna
 
         private SphereCollisionDetector sphereCollisionDetector = new SphereCollisionDetector();
         private List<GameObject> gameObjects = new List<GameObject>();
+        private List<GameObject> collidedObjects = new List<GameObject>();
         private GameObject activeObject = null;
 
         #endregion
