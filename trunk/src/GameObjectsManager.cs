@@ -3,11 +3,14 @@
 
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using XELibrary;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GameXna
 {
-    public class GameObjectsManager : GameComponent
+    public class GameObjectsManager : DrawableGameComponent
     {
+        FirstPersonCamera camera;
         #region --- Private fields ---
 
         private SphereCollisionDetector sphereCollisionDetector = new SphereCollisionDetector();
@@ -25,6 +28,7 @@ namespace GameXna
         /// <param name="game"></param>
         public GameObjectsManager(Game game) : base(game)
         {
+            camera = (game.Components[2] as FirstPersonCamera);
         }
 
         #endregion
@@ -69,6 +73,43 @@ namespace GameXna
         }
 
         #endregion
+
+        public override void Draw(GameTime gameTime)
+        {
+            foreach (GameObject obj in this.gameObjects)
+            {
+                //DrawModel(ref obj.Model, ref obj.World);
+                obj.Draw();
+            }
+
+            base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Draw model
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="world"></param>
+        public void DrawModel(ref Model m, ref Matrix world)
+        {
+            if (m == null)
+                return;
+            Matrix[] transforms = new Matrix[m.Bones.Count];
+            m.CopyAbsoluteBoneTransformsTo(transforms);
+            camera = (this.Game.Components[2] as FirstPersonCamera);
+
+            foreach (ModelMesh mesh in m.Meshes)
+            {
+                foreach (BasicEffect be in mesh.Effects)
+                {
+                    be.EnableDefaultLighting();
+                    be.Projection = camera.Projection;
+                    be.View = camera.View;
+                    be.World = world * mesh.ParentBone.Transform;
+                }
+                mesh.Draw();
+            }
+        }
 
         public override void Update(GameTime gameTime)
         {
