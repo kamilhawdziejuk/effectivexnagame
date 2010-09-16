@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using XELibrary;
 
 namespace GameXna
 {
     /// <summary>
     /// Main class that represents game's object
     /// </summary>
-    public class GameObject
+    public class GameObject : DrawableGameComponent
     {
-        private Texture2D texture;
+        public FirstPersonCamera camera;
         public Model Model;
         public Matrix World;
         public float Scale;
@@ -24,12 +25,14 @@ namespace GameXna
         /// <param name="_model"></param>
         /// <param name="_world"></param>
         /// <param name="_scale"></param>
-        public GameObject(Model _model, Matrix _world, string _name)
+        public GameObject(Game _game, Model _model, Matrix _world, string _name) : base(_game)
         {
             this.Model = _model;
             this.World = _world;
             this.position = new Vector3(0, 0, 0);
             this.name = _name;
+            camera = (_game.Components[2] as FirstPersonCamera);
+
         }
 
         #endregion
@@ -79,6 +82,48 @@ namespace GameXna
                 this.World *= Matrix.CreateTranslation(movement);
             }
         }
+
+        #endregion
+
+        #region IDrawable Members
+
+        public virtual void Draw()
+        {
+            Model m = this.Model;
+            Matrix world = this.World;
+            camera = (this.Game.Components[2] as FirstPersonCamera);
+
+            if (m == null)
+                return;
+            Matrix[] transforms = new Matrix[m.Bones.Count];
+            m.CopyAbsoluteBoneTransformsTo(transforms);
+
+            foreach (ModelMesh mesh in m.Meshes)
+            {
+                foreach (BasicEffect be in mesh.Effects)
+                {
+                    be.EnableDefaultLighting();
+                    be.Projection = camera.Projection;
+                    be.View = camera.View;
+                    be.World = world * mesh.ParentBone.Transform;
+                }
+                mesh.Draw();
+            }
+        }
+
+        public int DrawOrder
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        public event System.EventHandler DrawOrderChanged;
+
+        public bool Visible
+        {
+            get { return true; }
+        }
+
+        public event System.EventHandler VisibleChanged;
 
         #endregion
     }

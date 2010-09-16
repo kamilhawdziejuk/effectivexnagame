@@ -67,10 +67,6 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
-    <Reference Include="StillDesign.PhysX.Net, Version=0.11.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\PhysX.Net\StillDesign.PhysX.Net.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -89,24 +85,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimationClip.cs" />
-    <Compile Include="AnimationPlayer.cs" />
+    <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="Collisions\ICollisionDetector.cs" />
     <Compile Include="Collisions\SphereCollisionDetector.cs" />
     <Compile Include="Figures\Rectangle.cs" />
     <Compile Include="Figures\Triangle.cs" />
     <Compile Include="Figures\VerticesIndicesFigure.cs" />
-    <Compile Include="GameObject.cs" />
+    <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjectsManager.cs" />
-    <Compile Include="Keyframe.cs" />
+    <Compile Include="GameObjects\GameVehicle.cs" />
     <Compile Include="Primitives3D\GeometricPrimitive.cs" />
     <Compile Include="Primitives3D\SpherePrimitive.cs" />
     <Compile Include="Primitives3D\VertexPositionNormal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GameXna.cs" />
-    <Compile Include="SkinnedSphere.cs" />
-    <Compile Include="SkinningData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

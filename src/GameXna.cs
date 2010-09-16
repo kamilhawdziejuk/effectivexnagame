@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using XELibrary;
 using Primitives3D;
+using GameXna.GameObjects;
 
 namespace GameXna
 {
@@ -144,57 +145,19 @@ namespace GameXna
                 Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)) *
                 Matrix.CreateTranslation(new Vector3(0.5f, height, 0));
 
-            Matrix fireWorld = Matrix.CreateScale(0.0005f) * Matrix.CreateTranslation(new Vector3(0.5f, 0.5f, 0));
-
-            var car = new GameObject(null, carWorld, "car");
-            var heli = new GameObject(null, heliWorld, "heli");
-            var fire = new GameObject(null, fireWorld, "fire");
+            var car = new GameVehicle(this,null, carWorld, "car");
+            var heli = new GameVehicle(this, null, heliWorld, "heli");
+            car.camera = this.camera;
+            heli.camera = this.camera;
 
             car.Scale = 0.0015f;
             heli.Scale = 0.0025f;
-            fire.Scale = 0.0005f;
 
             objects.Add(car);
             objects.Add(heli);
-            objects.Add(fire);
             objects.ActiveObject = objects.Get("heli");
 
             base.Initialize();
-        }
-
-        /// <summary>
-        /// Drawing a game object
-        /// </summary>
-        /// <param name="gameObject"></param>
-        private void DrawGameObject(GameObject gameObject)
-        {
-            DrawModel(ref gameObject.Model, ref gameObject.World);
-        }
-
-        /// <summary>
-        /// Draw model
-        /// </summary>
-        /// <param name="m"></param>
-        /// <param name="world"></param>
-        public void DrawModel(ref Model m, ref Matrix world)
-        {
-            if (m == null)
-                return;
-            Matrix[] transforms = new Matrix[m.Bones.Count];
-            m.CopyAbsoluteBoneTransformsTo(transforms);
-
-           
-            foreach (ModelMesh mesh in m.Meshes)
-            {
-                foreach (BasicEffect be in mesh.Effects)
-                {
-                    be.EnableDefaultLighting();
-                    be.Projection = camera.Projection;
-                    be.View = camera.View;
-                    be.World = world * mesh.ParentBone.Transform;
-                }
-                mesh.Draw();
-            }
         }
 
         /// <summary>
@@ -210,16 +173,13 @@ namespace GameXna
             this.textureCenter = Content.Load<Texture2D>("Textures\\wydmy");
 
             // TODO: Load any ResourceManagementMode.Automatic content
-            GameObject ford = objects.Get("car");
+            var ford = objects.Get("car") as GameVehicle;
             if (ford != null)
             {
                 ford.Model = Content.Load<Model>("Models\\Ford\\ford");
-                //ford.Model = Content.Load<Model>("Skyboxes\\srefl");
-               // ford.Scale *= 0.001f;
-                //ford.Model = Content.Load<Model>(s"Models\\marry\\MerryChristmasGreen");
             }
 
-            GameObject heli = objects.Get("heli");
+            var heli = objects.Get("heli") as GameVehicle;
             if (heli != null)
             {
                 heli.Model = Content.Load<Model>("Models\\Helikopter\\helnwsm1");
@@ -228,42 +188,12 @@ namespace GameXna
                 this.choopRotation = choopBone.Transform;   
             }
 
-            
-
-            GameObject fire = objects.Get("fire");
-            if (fire != null)
+            foreach (Bullet bullet in heli.Bullets)
             {
-                fire.Model = Content.Load<Model>("Models\\Pociski\\Zepplin");
+                bullet.Model = Content.Load<Model>("Models\\Pociski\\Zepplin");
             }
 
             this.skyboxModel = LoadModel("Skyboxes\\skybox", out this.skyboxTextures);
-            //GameObject fire = obje
-
-
-            // Load the model.
-            //currentModel = heli.Model;
-
-            // Look up our custom skinning information.
-            //skinningData = currentModel.Tag as SkinningData;
-
-            //if (skinningData == null)
-            //    throw new InvalidOperationException
-            //        ("This model does not contain a SkinningData tag.");
-
-            //boneTransforms = new Matrix[skinningData.BindPose.Count];
-
-            //// Create an animation player, and start decoding an animation clip.
-            //animationPlayer = new AnimationPlayer(skinningData);
-
-            //AnimationClip clip = skinningData.AnimationClips["Take 001"];
-
-            //animationPlayer.StartClip(clip);
-
-            //// Load the bounding spheres.
-            //skinnedSpheres = Content.Load<SkinnedSphere[]>("CollisionSpheres");
-            //boundingSpheres = new BoundingSphere[skinnedSpheres.Length];
-            
-
         }
 
         
@@ -363,57 +293,57 @@ namespace GameXna
                 }
             }
 
-            //ISROT = Identity, Scale, Rotation, Orbit, Translation
-            GameObject obj = objects.ActiveObject;
+            ////ISROT = Identity, Scale, Rotation, Orbit, Translation
+            //GameObject obj = objects.ActiveObject;
 
-            rot += 5.1f;
+            //rot += 5.1f;
 
-            obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
-            Vector3 lastPosition = obj.Position;
-            Matrix yaw = Matrix.Identity;
+            //obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
+            //Vector3 lastPosition = obj.Position;
+            //Matrix yaw = Matrix.Identity;
 
-            if (this.camera.lastCameraYaw != this.camera.cameraYaw)
-            {
-                obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
-                yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
-                    Matrix.CreateRotationY(MathHelper.ToRadians(obj.Rotation)) *
-                    Matrix.CreateTranslation(this.camera.cameraPosition);
-                total += obj.Rotation;
-                obj.World *= yaw;
-            }
+            //if (this.camera.lastCameraYaw != this.camera.cameraYaw)
+            //{
+            //    obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
+            //    yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
+            //        Matrix.CreateRotationY(MathHelper.ToRadians(obj.Rotation)) *
+            //        Matrix.CreateTranslation(this.camera.cameraPosition);
+            //    total += obj.Rotation;
+            //    obj.World *= yaw;
+            //}
 
-            if (objects.Get("heli") == objects.ActiveObject)
-            {
-                //rotating the choop, with a correction include
-                Vector3 move = objects.ActiveObject.Position + -0.091f * new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float)Math.Cos(MathHelper.ToRadians(total)));
-                this.choopBone.Transform =
-                    Matrix.CreateTranslation(-move) *
-                     Matrix.CreateRotationY(rot) *
-                    Matrix.CreateTranslation(move);
-            }
-            this.choopBone2.Transform = this.choopBone.Transform;
-            //sound
-            if (this.camera.lastCameraPosition != this.camera.cameraPosition)
-            {
-                if (objects.Get("heli") == objects.ActiveObject)
-                {
-                    sound.Play("helis");
-                }
-                else
-                {
-                    sound.Play("car");
-                }
-            }
+            //if (objects.Get("heli") == objects.ActiveObject)
+            //{
+            //    //rotating the choop, with a correction include
+            //    Vector3 move = objects.ActiveObject.Position + -0.091f * new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float)Math.Cos(MathHelper.ToRadians(total)));
+            //    this.choopBone.Transform =
+            //        Matrix.CreateTranslation(-move) *
+            //         Matrix.CreateRotationY(rot) *
+            //        Matrix.CreateTranslation(move);
+            //}
+            //this.choopBone2.Transform = this.choopBone.Transform;
+            ////sound
+            //if (this.camera.lastCameraPosition != this.camera.cameraPosition)
+            //{
+            //    if (objects.Get("heli") == objects.ActiveObject)
+            //    {
+            //        sound.Play("helis");
+            //    }
+            //    else
+            //    {
+            //        sound.Play("car");
+            //    }
+            //}
 
-
-            if (this.input.MouseState.LeftButton == ButtonState.Pressed)
-            {
-                GameObject fire = objects.Get("fire");
-                if (fire != null)
-                {
-                    fire.Position += new Vector3(0, 0, -0.1f);
-                }
-            }
+            //Vector3 fireDirection = new Vector3(0, 0, -0.1f);
+            //if (this.input.MouseState.LeftButton == ButtonState.Pressed)
+            //{
+            //    GameObject fire = objects.Get("fire");
+            //    if (fire != null)
+            //    {
+            //        fire.Position += fireDirection;
+            //    }
+            //}
 
 
             // TODO: Add your update logic here
@@ -476,13 +406,60 @@ namespace GameXna
                 effect.End();
             }
 
-        
+            //ISROT = Identity, Scale, Rotation, Orbit, Translation
+            GameObject obj = objects.ActiveObject;
 
-            foreach (GameObject obj0 in objects.GameObjects)
+            rot += 5.1f;
+
+            obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
+            Vector3 lastPosition = obj.Position;
+            Matrix yaw = Matrix.Identity;
+
+            if (this.camera.lastCameraYaw != this.camera.cameraYaw)
             {
-                DrawGameObject(obj0);
+                obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
+                yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
+                    Matrix.CreateRotationY(MathHelper.ToRadians(obj.Rotation)) *
+                    Matrix.CreateTranslation(this.camera.cameraPosition);
+                total += obj.Rotation;
+                obj.World *= yaw;
             }
 
+            if (objects.Get("heli") == objects.ActiveObject)
+            {
+                //rotating the choop, with a correction include
+                Vector3 move = objects.ActiveObject.Position + -0.091f * new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float)Math.Cos(MathHelper.ToRadians(total)));
+                this.choopBone.Transform =
+                    Matrix.CreateTranslation(-move) *
+                     Matrix.CreateRotationY(rot) *
+                    Matrix.CreateTranslation(move);
+            }
+            this.choopBone2.Transform = this.choopBone.Transform;
+            //sound
+            if (this.camera.lastCameraPosition != this.camera.cameraPosition)
+            {
+                if (objects.Get("heli") == objects.ActiveObject)
+                {
+                    sound.Play("helis");
+                }
+                else
+                {
+                    sound.Play("car");
+                }
+            }
+
+            Vector3 fireDirection = new Vector3(0, 0, -0.1f);
+            if (this.input.MouseState.LeftButton == ButtonState.Pressed)
+            {
+                GameObject fire = objects.Get("fire");
+                if (fire != null)
+                {
+                    fire.Position += fireDirection;
+                }
+            }
+
+            objects.Draw(gameTime);
+            
             this.DrawSkybox();
             //this.skybox.Draw(camera.View, camera.Projection, yaw);
 
