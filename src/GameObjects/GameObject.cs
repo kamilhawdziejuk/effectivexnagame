@@ -8,9 +8,10 @@ namespace GameXna
     /// <summary>
     /// Main class that represents game's object
     /// </summary>
-    public class GameObject : DrawableGameComponent
+    public abstract class GameObject : DrawableGameComponent
     {
-        public FirstPersonCamera camera;
+        protected FirstPersonCamera camera;
+        protected InputHandler input;
         public Model Model;
         public Matrix World;
         public float Scale;
@@ -31,8 +32,8 @@ namespace GameXna
             this.World = _world;
             this.position = new Vector3(0, 0, 0);
             this.name = _name;
-            camera = (_game.Components[2] as FirstPersonCamera);
-
+            camera = _game.Components[2] as FirstPersonCamera;//.Services.GetService(typeof(FirstPersonCamera)) as FirstPersonCamera;
+            input = _game.Services.GetService(typeof(IInputHandler)) as InputHandler;
         }
 
         #endregion
@@ -63,7 +64,6 @@ namespace GameXna
 
         #endregion
 
-
         #region --- Position ---
 
         private Vector3 position;
@@ -91,7 +91,6 @@ namespace GameXna
         {
             Model m = this.Model;
             Matrix world = this.World;
-            camera = (this.Game.Components[2] as FirstPersonCamera);
 
             if (m == null)
                 return;
