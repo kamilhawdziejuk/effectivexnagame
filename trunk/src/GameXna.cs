@@ -147,8 +147,6 @@ namespace GameXna
 
             var car = new GameVehicle(this,null, carWorld, "car");
             var heli = new GameVehicle(this, null, heliWorld, "heli");
-            car.camera = this.camera;
-            heli.camera = this.camera;
 
             car.Scale = 0.0015f;
             heli.Scale = 0.0025f;
@@ -448,15 +446,6 @@ namespace GameXna
                 }
             }
 
-            Vector3 fireDirection = new Vector3(0, 0, -0.1f);
-            if (this.input.MouseState.LeftButton == ButtonState.Pressed)
-            {
-                GameObject fire = objects.Get("fire");
-                if (fire != null)
-                {
-                    fire.Position += fireDirection;
-                }
-            }
 
             objects.Draw(gameTime);
             

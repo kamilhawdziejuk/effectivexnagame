@@ -14,6 +14,14 @@ namespace GameXna
         public Bullet(Game _game, Model _model, Matrix _world, string _name) : base(_game, _model, _world, _name)
         {
         }
+
+        public override void Draw()
+        {
+            if (this.State != BulletState.Prepared)
+            {
+                base.Draw();
+            }
+        }
         
     }
 
