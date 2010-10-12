@@ -99,6 +99,7 @@ namespace GameXna
         {
             this.graphics = new GraphicsDeviceManager(this);
             this.Content = new ContentManager(Services);
+           // this.graphics.GraphicsDevice.
 
             Content.RootDirectory = "Content";
 #if DEBUG
@@ -412,21 +413,49 @@ namespace GameXna
             obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
             Vector3 lastPosition = obj.Position;
             Matrix yaw = Matrix.Identity;
-
+            Matrix pitch = Matrix.Identity;
+            Vector3 forward = obj.World0.Forward;
             if (this.camera.lastCameraYaw != this.camera.cameraYaw)
             {
-                obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
+                float rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
                 yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
-                    Matrix.CreateRotationY(MathHelper.ToRadians(obj.Rotation)) *
+                    Matrix.CreateRotationY(MathHelper.ToRadians(rotation)) *
                     Matrix.CreateTranslation(this.camera.cameraPosition);
-                total += obj.Rotation;
+                //total += obj.Rotation;
+                obj.Rotation += rotation;
                 obj.World *= yaw;
+                obj.World0 *= yaw;
+
+                if (obj == objects.ActiveObject)
+                {
+                    GameVehicle vehicule = obj as GameVehicle;
+                    if (vehicule != null)
+                    {
+                        foreach (Bullet b in vehicule.Bullets)
+                        {
+                            b.World *= yaw;
+                            b.World0 *= yaw;
+                        }
+                    }
+                }
+               
             }
+         /*   if (this.camera.lastCameraPitch != this.camera.cameraPitch)
+            {
+                float rotation = this.camera.cameraPitch - this.camera.lastCameraPitch;
+                pitch = Matrix.CreateTranslation(-this.camera.cameraPosition) *
+                    Matrix.CreateRotationX(MathHelper.ToRadians(rotation)) *
+                    Matrix.CreateTranslation(this.camera.cameraPosition);
+                //total += obj.Rotation;
+                obj.Rotation += rotation;
+                //obj.World *= yaw;
+                obj.World0 *= pitch;
+            }*/
 
             if (objects.Get("heli") == objects.ActiveObject)
             {
                 //rotating the choop, with a correction include
-                Vector3 move = objects.ActiveObject.Position + -0.091f * new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float)Math.Cos(MathHelper.ToRadians(total)));
+                Vector3 move = objects.ActiveObject.Position2 + -0.091f * new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float)Math.Cos(MathHelper.ToRadians(total)));
                 this.choopBone.Transform =
                     Matrix.CreateTranslation(-move) *
                      Matrix.CreateRotationY(rot) *
@@ -446,6 +475,7 @@ namespace GameXna
                 }
             }
 
+            this.Window.Title = "Position= " + objects.ActiveObject.Position + "  Position2=" + objects.ActiveObject.Position2;
 
             objects.Draw(gameTime);
             

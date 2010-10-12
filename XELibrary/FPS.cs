@@ -60,7 +60,7 @@ namespace XELibrary
 #if XBOX360
                 System.Diagnostics.Debug.WriteLine("FPS: : + fps.ToString());
 #else
-                Game.Window.Title = "FPS: " + fps.ToString();
+                //Game.Window.Title = "FPS: " + fps.ToString();
 #endif
                 framecount = 0;
                 timeSinceLastUpdate -= updateInterval;

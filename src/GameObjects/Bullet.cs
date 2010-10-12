@@ -10,26 +10,57 @@ namespace GameXna
     public class Bullet : GameObject
     {
         public BulletState State = BulletState.Prepared;
+        private bool justFired = true;
+        public Vector3 TargetDirection = Vector3.Zero;
+        public int Time = 0;
 
         public Bullet(Game _game, Model _model, Matrix _world, string _name) : base(_game, _model, _world, _name)
         {
+            this.IsVisible = true;
         }
 
         public override void Draw()
         {
-            if (this.State != BulletState.Prepared)
+            if (this.State != BulletState.Prepared && this.IsVisible)
             {
                 base.Draw();
             }
         }
-        
+
+        public override void Update(GameTime gameTime)
+        {
+            if (this.State != BulletState.Prepared && justFired)
+            {
+                //Matrix rotation = Matrix.CreateRotationX(this.TargetDirection.X) * Matrix.CreateRotationY(this.TargetDirection.Y);
+                //this.World = rotation * this.World;
+                justFired = false;
+            }
+
+            base.Update(gameTime);
+        }
+
     }
 
+    /// <summary>
+    /// Stan pocisku
+    /// </summary>
     public enum BulletState
     {
+        /// <summary>
+        /// Przygotowany
+        /// </summary>
         Prepared,
-        Started,
+        /// <summary>
+        /// Odpalony
+        /// </summary>
+        Running,
+        /// <summary>
+        /// Po trafieniu
+        /// </summary>
         Hit,
+        /// <summary>
+        /// Poza planszą
+        /// </summary>
         Outside
     }
 }

@@ -19,10 +19,11 @@ namespace XELibrary
         private Matrix view;
         public double left;
         public double right;
-
+        public float lastCameraPitch = 0.0f;
         public float cameraYaw = 0.0f;
         public float lastCameraYaw = 0.0f;
         public float cameraPitch = 0.0f;
+
         protected Vector3 movement = Vector3.Zero;
 
         private const float spinRate = 90.0f;
