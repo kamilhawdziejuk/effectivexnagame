@@ -82,23 +82,30 @@ namespace GameXna
             base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// Aktualizuje stany obiektów, sprawdza zależności między nimi
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
 
             foreach (GameObject obj in this.gameObjects)
             {
-                obj.Update(gameTime);
+                if (obj == this.activeObject)
+                {
+                    obj.Update(gameTime);
+                }
             }
 
-            foreach (GameObject obj in this.gameObjects)
+            /*foreach (GameObject obj in this.gameObjects)
             {
                 if (obj != this.activeObject)
                 {
-                    if (sphereCollisionDetector.DetectCollision(obj, this.activeObject, 0))
+                    //if (sphereCollisionDetector.DetectCollision(obj, this.activeObject, 0))
                     {
                     }
                 }
-            }
+            }*/
             base.Update(gameTime);
         }
     }

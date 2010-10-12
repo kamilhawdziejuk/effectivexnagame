@@ -14,9 +14,11 @@ namespace GameXna
         protected InputHandler input;
         public Model Model;
         public Matrix World;
+        public Matrix World0 = Matrix.Identity;
         public float Scale;
         private string name = string.Empty;
         public List<Texture2D> Textures = new List<Texture2D>();
+        private bool isVisible = true;
 
         #region --- Constructing & destroying objects ---
 
@@ -46,6 +48,12 @@ namespace GameXna
             }
         }
 
+        internal bool IsVisible
+        {
+            get { return this.isVisible; }
+            set { this.isVisible = value; }
+        }
+
         #region --- Rotation ---
 
         float rotation;
@@ -72,14 +80,29 @@ namespace GameXna
         {
             get
             {
-                //return this.position;
+                return this.position;
+            }
+            set
+            {
+                Vector3 movement = value - this.position;
+                this.position = value;
+                this.World *= Matrix.CreateTranslation(movement);
+                this.World0 *= Matrix.CreateTranslation(movement);
+            }
+        }
+
+        public Vector3 Position2
+        {
+            get
+            {
                 return this.World.Translation;
             }
             set
             {
-                Vector3 movement = value - this.Position;
+                Vector3 movement = value - this.Position2;
                 this.position = value;
                 this.World *= Matrix.CreateTranslation(movement);
+                this.World0 *= Matrix.CreateTranslation(movement);
             }
         }
 
