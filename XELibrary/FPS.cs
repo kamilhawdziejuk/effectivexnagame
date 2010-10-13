@@ -67,5 +67,10 @@ namespace XELibrary
             }
             base.Draw(gameTime);
         }
+
+        public override string ToString()
+        {
+            return fps.ToString();// base.ToString();
+        }
     }
 }

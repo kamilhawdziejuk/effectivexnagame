@@ -102,10 +102,7 @@ namespace GameXna
            // this.graphics.GraphicsDevice.
 
             Content.RootDirectory = "Content";
-#if DEBUG
-            fps = new FPS(this);
-            Components.Add(fps);
-#endif
+
             input = new InputHandler(this);
             Components.Add(input);
 
@@ -117,6 +114,12 @@ namespace GameXna
 
             objects = new GameObjectsManager(this);
             Components.Add(objects);
+//#if DEBUG
+            fps = new FPS(this);
+            Components.Add(fps);
+//#endif
+
+
         }
 
         #endregion
@@ -421,45 +424,23 @@ namespace GameXna
                 yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
                     Matrix.CreateRotationY(MathHelper.ToRadians(rotation)) *
                     Matrix.CreateTranslation(this.camera.cameraPosition);
-                //total += obj.Rotation;
+                total += obj.Rotation;
                 obj.Rotation += rotation;
                 obj.World *= yaw;
                 obj.World0 *= yaw;
-
-                if (obj == objects.ActiveObject)
-                {
-                    GameVehicle vehicule = obj as GameVehicle;
-                    if (vehicule != null)
-                    {
-                        foreach (Bullet b in vehicule.Bullets)
-                        {
-                            b.World *= yaw;
-                            b.World0 *= yaw;
-                        }
-                    }
-                }
-               
             }
-         /*   if (this.camera.lastCameraPitch != this.camera.cameraPitch)
-            {
-                float rotation = this.camera.cameraPitch - this.camera.lastCameraPitch;
-                pitch = Matrix.CreateTranslation(-this.camera.cameraPosition) *
-                    Matrix.CreateRotationX(MathHelper.ToRadians(rotation)) *
-                    Matrix.CreateTranslation(this.camera.cameraPosition);
-                //total += obj.Rotation;
-                obj.Rotation += rotation;
-                //obj.World *= yaw;
-                obj.World0 *= pitch;
-            }*/
-
             if (objects.Get("heli") == objects.ActiveObject)
             {
                 //rotating the choop, with a correction include
-                Vector3 move = objects.ActiveObject.Position2 + -0.091f * new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float)Math.Cos(MathHelper.ToRadians(total)));
+                float alfa = 360 - objects.ActiveObject.Rotation;
+                Vector3 poprawka = 0.11f * new Vector3((float)Math.Sin(MathHelper.ToRadians(alfa)), 0, -(float)Math.Cos(MathHelper.ToRadians(alfa)));
+                Vector3 move = objects.ActiveObject.Position2 + poprawka;
+                
                 this.choopBone.Transform =
                     Matrix.CreateTranslation(-move) *
                      Matrix.CreateRotationY(rot) *
                     Matrix.CreateTranslation(move);
+               
             }
             this.choopBone2.Transform = this.choopBone.Transform;
             //sound
@@ -474,9 +455,11 @@ namespace GameXna
                     sound.Play("car");
                 }
             }
-
-            this.Window.Title = "Position= " + objects.ActiveObject.Position + "  Position2=" + objects.ActiveObject.Position2;
-
+            
+            //this.Window.Title = "Position= " + objects.ActiveObject.Position + "  Position2=" + objects.ActiveObject.Position2 + " X=" + X + "  Z=" + Z + "  Total=" + (360-objects.ActiveObject.Rotation);// this.choopBone.Transform.Translation;
+            this.Window.Title = "Arms counter=" + (objects.ActiveObject as GameVehicle).Bullets.FindAll(a => a.State == BulletState.Prepared).Count;
+            this.Window.Title += "          FPS:" + this.fps.ToString();
+            
             objects.Draw(gameTime);
             
             this.DrawSkybox();

@@ -34,7 +34,7 @@ namespace GameXna
             this.World = _world;
             this.position = new Vector3(0, 0, 0);
             this.name = _name;
-            camera = _game.Components[2] as FirstPersonCamera;//.Services.GetService(typeof(FirstPersonCamera)) as FirstPersonCamera;
+            camera =  _game.Components[1] as FirstPersonCamera; //_game.Services.GetService(typeof(FirstPersonCamera)) as FirstPersonCamera;
             input = _game.Services.GetService(typeof(IInputHandler)) as InputHandler;
         }
 
