@@ -444,6 +444,7 @@ namespace GameXna
             }
             this.choopBone2.Transform = this.choopBone.Transform;
             //sound
+            this.sound.Update(gameTime);
             if (this.camera.lastCameraPosition != this.camera.cameraPosition)
             {
                 if (objects.Get("heli") == objects.ActiveObject)

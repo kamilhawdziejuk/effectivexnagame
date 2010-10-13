@@ -121,16 +121,47 @@ namespace XELibrary
 
         public void Play(string cueName)
         {
+            /*Cue currentCue = this.currentlyPlaying;
+            if (currentlyPlaying != null)
+            {
+                if (!currentCue.ToString().Equals(cueName))
+                {
+                    this.StopAll();
+                }
+            }*/
+            Cue currentCue = null;
+
+            try
+            {
+                currentCue = soundBank.GetCue(cueName);
+            }
+            catch
+            {
+                return;
+            }
             Cue prevCue = null;
             if (!cues.ContainsKey(cueName))
-                cues.Add(cueName, soundBank.GetCue(cueName));
+
+            {
+                cues.Add(cueName, currentCue);
+            }
             else
             {
                 //store our cue if we were playing
                 if (cues[cueName].IsPlaying)
                     prevCue = cues[cueName];
                 else
-                cues[cueName] = soundBank.GetCue(cueName);
+                {
+                    
+                   // if (!cue.ToString().Equals(cueName))
+                    try
+                    {
+                        cues[cueName] = currentCue;
+                    }
+                    catch
+                    {
+                    }
+                }
             }
             //if we weren’t playing, set previous to our current cue name
             if (prevCue == null)
@@ -138,7 +169,7 @@ namespace XELibrary
             try
             {
                 if (!cues[cueName].IsPlaying)
-                cues[cueName].Play();
+                    cues[cueName].Play();
             }
             catch (InstancePlayLimitException)
             {
@@ -146,8 +177,11 @@ namespace XELibrary
                 //and let’s stop it and then start it up again ...
                 cues[cueName] = prevCue;
                 if (cues[cueName].IsPlaying)
-                cues[cueName].Stop(AudioStopOptions.AsAuthored);
+                    cues[cueName].Stop(AudioStopOptions.AsAuthored);
                 Toggle(cueName);
+            }
+            catch
+            {
             }
         }
 

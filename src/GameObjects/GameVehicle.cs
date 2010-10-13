@@ -53,6 +53,10 @@ namespace GameXna.GameObjects
             //odpalam nowy pocisk, po wciśnięciu lewego przycisku myszy
             if (this.input.MouseState.LeftButton == ButtonState.Pressed || this.input.KeyboardState.IsKeyDown(Keys.Space))
             {
+                SoundManager sound = (this.Game.Components[2] as SoundManager);
+                sound.StopAll();
+                sound.Play("fire");
+
                 Vector2 targetOnScreen = new Vector2((float)this.input.MouseState.X - this.Game.GraphicsDevice.ScissorRectangle.Center.X,
                     this.Game.GraphicsDevice.ScissorRectangle.Center.Y - (float)this.input.MouseState.Y);
                 Vector3 clickedTarget = new Vector3(this.Scale * targetOnScreen.X, this.Scale * targetOnScreen.Y, 1.9f);
@@ -63,7 +67,7 @@ namespace GameXna.GameObjects
                     fired.State = BulletState.Running;
                     fired.Position2 = this.Position2;
                     fired.TargetDirection = clickedTarget.Z * this.World0.Forward +clickedTarget.X * this.World0.Right + clickedTarget.Y * this.World0.Up;
-                    fired.TargetDirection *= 0.5f;
+                    fired.TargetDirection *= 0.3f;
                     fired.World.Forward = this.Scale * fired.TargetDirection;
                 }
             }

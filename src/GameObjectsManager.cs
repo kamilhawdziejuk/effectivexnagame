@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using XELibrary;
 using Microsoft.Xna.Framework.Graphics;
+using GameXna.GameObjects;
 
 namespace GameXna
 {
@@ -97,15 +98,31 @@ namespace GameXna
                 }
             }
 
-            /*foreach (GameObject obj in this.gameObjects)
+            foreach (GameObject obj in this.gameObjects)
             {
-                if (obj != this.activeObject)
+                GameVehicle vehicule = obj as GameVehicle;
+                if (vehicule != null)
                 {
-                    //if (sphereCollisionDetector.DetectCollision(obj, this.activeObject, 0))
+                    foreach (Bullet b in vehicule.Bullets)
                     {
+                        if (b.State == BulletState.Running)
+                        {
+                            foreach (GameVehicle obj2 in this.gameObjects)
+                            {
+                                if (obj != obj2)
+                                {
+                                    if (this.sphereCollisionDetector.DetectCollision(b, obj2, 0))
+                                    {
+                                        b.State = BulletState.Hit;
+                                        (this.Game.Components[2] as SoundManager).StopAll();
+                                        (this.Game.Components[2] as SoundManager).Play("explosion");
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-            }*/
+            }
             base.Update(gameTime);
         }
     }
