@@ -67,7 +67,7 @@ namespace GameXna.GameObjects
                     fired.State = BulletState.Running;
                     fired.Position2 = this.Position2;
                     fired.TargetDirection = clickedTarget.Z * this.World0.Forward +clickedTarget.X * this.World0.Right + clickedTarget.Y * this.World0.Up;
-                    fired.TargetDirection *= 0.3f;
+                    fired.TargetDirection *= 0.05f;
                     fired.World.Forward = this.Scale * fired.TargetDirection;
                 }
             }

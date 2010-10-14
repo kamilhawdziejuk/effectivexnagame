@@ -190,10 +190,10 @@ namespace GameXna
                 this.choopRotation = choopBone.Transform;   
             }
 
-            foreach (Bullet bullet in heli.Bullets)
-            {
-                bullet.Model = Content.Load<Model>("Models\\Pociski\\Zepplin");
-            }
+            Model fireModel = Content.Load<Model>("Models\\Pociski\\Zepplin");
+
+            heli.Bullets.ForEach(a => a.Model = fireModel);
+            ford.Bullets.ForEach(a => a.Model = fireModel);
 
             this.skyboxModel = LoadModel("Skyboxes\\skybox", out this.skyboxTextures);
         }
