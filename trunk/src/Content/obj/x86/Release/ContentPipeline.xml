@@ -128,7 +128,7 @@
       <Time>2010-07-26T18:43:59.4892622+02:00</Time>
       <Dependency>
         <Key>obj\x86\Release\Models\Ford\ford_0.xml</Key>
-        <Value>2010-09-14T22:53:19.7108817+02:00</Value>
+        <Value>2010-10-13T22:19:43.7470467+02:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -141,7 +141,7 @@
       <Time>2010-08-05T21:42:28.1629096+02:00</Time>
       <Dependency>
         <Key>obj\x86\Release\Models\Helikopter\helnwsm1_0.xml</Key>
-        <Value>2010-09-14T22:53:21.097961+02:00</Value>
+        <Value>2010-10-13T22:19:45.0641221+02:00</Value>
       </Dependency>
       <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHBLACK_0.xnb</Request>
       <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHWHITE_0.xnb</Request>
@@ -158,7 +158,7 @@
       <Time>2010-08-29T23:01:17.6375679+02:00</Time>
       <Dependency>
         <Key>obj\x86\Release\Skyboxes\skybox_0.xml</Key>
-        <Value>2010-09-14T22:53:24.2591418+02:00</Value>
+        <Value>2010-10-13T22:19:47.8452811+02:00</Value>
       </Dependency>
       <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Top_0.xnb</Request>
       <Request>D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\SkyBox_Right_0.xnb</Request>
@@ -177,7 +177,7 @@
       <Time>2010-09-14T18:53:06.5064935+02:00</Time>
       <Dependency>
         <Key>obj\x86\Release\Models\Pociski\Zepplin_0.xml</Key>
-        <Value>2010-09-14T22:53:27.8453469+02:00</Value>
+        <Value>2010-10-13T22:19:51.9895182+02:00</Value>
       </Dependency>
     </Item>
     <Item>

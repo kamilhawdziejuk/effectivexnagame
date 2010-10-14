@@ -13,6 +13,7 @@ namespace GameXna
     {
         #region --- Private fields ---
 
+        private SoundManager sound = null;
         private SphereCollisionDetector sphereCollisionDetector = new SphereCollisionDetector();
         private List<GameObject> gameObjects = new List<GameObject>();
         private List<GameObject> collidedObjects = new List<GameObject>();
@@ -28,6 +29,7 @@ namespace GameXna
         /// <param name="game"></param>
         public GameObjectsManager(Game game) : base(game)
         {
+            this.sound = game.Components[2] as SoundManager;
         }
 
         #endregion
@@ -98,27 +100,23 @@ namespace GameXna
                 }
             }
 
-            foreach (GameObject obj in this.gameObjects)
+            //dla każdych wehikułów...
+            foreach (GameVehicle vehicule in this.gameObjects.FindAll(a => a is GameVehicle))
             {
-                GameVehicle vehicule = obj as GameVehicle;
-                if (vehicule != null)
+                //i wystrzelonych z nich pocisków...
+                foreach (Bullet b in vehicule.Bullets.FindAll(a => a.State == BulletState.Running))
                 {
-                    foreach (Bullet b in vehicule.Bullets)
+                    //sprawdz inne wehikuły...
+                    foreach (GameVehicle vehicule2 in this.gameObjects.FindAll(a => a != b && a != vehicule))
                     {
-                        if (b.State == BulletState.Running)
+                        //czy nie są w kolizji z tymi pociskami!
+                        if (this.sphereCollisionDetector.DetectCollision(b, vehicule2, 0))
                         {
-                            foreach (GameVehicle obj2 in this.gameObjects)
-                            {
-                                if (obj != obj2)
-                                {
-                                    if (this.sphereCollisionDetector.DetectCollision(b, obj2, 0))
-                                    {
-                                        b.State = BulletState.Hit;
-                                        (this.Game.Components[2] as SoundManager).StopAll();
-                                        (this.Game.Components[2] as SoundManager).Play("explosion");
-                                    }
-                                }
-                            }
+                            //zmień stan na "trafiony"
+                            b.State = BulletState.Hit;
+                            //i uruchom "dźwięk trafienia"
+                            sound.StopAll();
+                            sound.Play("explosion");
                         }
                     }
                 }

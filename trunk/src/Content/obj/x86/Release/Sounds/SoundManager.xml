@@ -9,8 +9,8 @@
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = &lt;none&gt;;
-    Bank Last Revised Low = 2904895908;
-    Bank Last Revised High = 30094747;
+    Bank Last Revised Low = 909116437;
+    Bank Last Revised High = 30108426;
 
     Wave
     {
@@ -55,6 +55,75 @@
             File Type = 1;
             Last Modified Low = 904712797;
             Last Modified High = 30094734;
+        }
+    }
+
+    Wave
+    {
+        Name = explosion;
+        File = Win\explosion.wav;
+        Build Settings Last Modified Low = 493972692;
+        Build Settings Last Modified High = 30108426;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 58;
+            Play Region Length = 976896;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 72528587;
+            Last Modified High = 30108426;
+        }
+    }
+
+    Wave
+    {
+        Name = fire;
+        File = Win\fire.wav;
+        Build Settings Last Modified Low = 494012695;
+        Build Settings Last Modified High = 30108426;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 58;
+            Play Region Length = 175104;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 73138622;
+            Last Modified High = 30108426;
+        }
+    }
+
+    Wave
+    {
+        Name = fire2;
+        File = Win\fire2.wav;
+        Build Settings Last Modified Low = 494052697;
+        Build Settings Last Modified High = 30108426;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 58;
+            Play Region Length = 359424;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 73938668;
+            Last Modified High = 30108426;
         }
     }
 }

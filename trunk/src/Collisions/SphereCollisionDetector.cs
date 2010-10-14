@@ -24,11 +24,11 @@ namespace GameXna
                 {
                     BoundingSphere bs1 = mesh1.BoundingSphere;
                     bs1.Center = obj1.Position2;
-                    bs1.Radius *= 0.8f * obj1.Scale;
+                    bs1.Radius *= 0.6f * obj1.Scale;
                    
                     BoundingSphere bs2 = mesh2.BoundingSphere;
                     bs2.Center = obj2.Position2;
-                    bs2.Radius *= 0.8f * obj2.Scale;
+                    bs2.Radius *= 0.6f * obj2.Scale;
 
                     if (bs1.Intersects(bs2))
                     {
