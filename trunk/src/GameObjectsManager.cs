@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using XELibrary;
 using Microsoft.Xna.Framework.Graphics;
 using GameXna.GameObjects;
+using GameXna.GameStates;
 
 namespace GameXna
 {
@@ -91,37 +92,41 @@ namespace GameXna
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-
-            foreach (GameObject obj in this.gameObjects)
+            if ((this.Game as GameXna).GameStateManager.State is StartLevelState)
             {
-                if (obj == this.activeObject)
-                {
-                    obj.Update(gameTime);
-                }
-            }
 
-            //dla każdych wehikułów...
-            foreach (GameVehicle vehicule in this.gameObjects.FindAll(a => a is GameVehicle))
-            {
-                //i wystrzelonych z nich pocisków...
-                foreach (Bullet b in vehicule.Bullets.FindAll(a => a.State == BulletState.Running))
+
+                foreach (GameObject obj in this.gameObjects)
                 {
-                    //sprawdz inne wehikuły...
-                    foreach (GameVehicle vehicule2 in this.gameObjects.FindAll(a => a != b && a != vehicule))
+                    if (obj == this.activeObject)
                     {
-                        //czy nie są w kolizji z tymi pociskami!
-                        if (this.sphereCollisionDetector.DetectCollision(b, vehicule2, 0))
+                        obj.Update(gameTime);
+                    }
+                }
+
+                //dla każdych wehikułów...
+                foreach (GameVehicle vehicule in this.gameObjects.FindAll(a => a is GameVehicle))
+                {
+                    //i wystrzelonych z nich pocisków...
+                    foreach (Bullet b in vehicule.Bullets.FindAll(a => a.State == BulletState.Running))
+                    {
+                        //sprawdz inne wehikuły...
+                        foreach (GameVehicle vehicule2 in this.gameObjects.FindAll(a => a != b && a != vehicule))
                         {
-                            //zmień stan na "trafiony"
-                            b.State = BulletState.Hit;
-                            //i uruchom "dźwięk trafienia"
-                            sound.StopAll();
-                            sound.Play("explosion");
+                            //czy nie są w kolizji z tymi pociskami!
+                            if (this.sphereCollisionDetector.DetectCollision(b, vehicule2, 0))
+                            {
+                                //zmień stan na "trafiony"
+                                b.State = BulletState.Hit;
+                                //i uruchom "dźwięk trafienia"
+                                sound.StopAll();
+                                sound.Play("explosion");
+                            }
                         }
                     }
                 }
+                base.Update(gameTime);
             }
-            base.Update(gameTime);
         }
     }
 }

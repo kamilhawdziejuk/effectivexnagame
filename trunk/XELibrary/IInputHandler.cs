@@ -11,6 +11,7 @@ namespace XELibrary
 #if !XBOX360
         MouseState MouseState { get; }
         MouseState PreviousMouseState { get; }
+        bool WasPressed(int playerIndex, Keys keys);
 #endif
     }
 }

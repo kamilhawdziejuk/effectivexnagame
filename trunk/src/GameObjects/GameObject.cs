@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using XELibrary;
+using GameXna.GameStates;
 
 namespace GameXna
 {
@@ -112,24 +113,27 @@ namespace GameXna
 
         public virtual void Draw()
         {
-            Model m = this.Model;
-            Matrix world = this.World;
-
-            if (m == null)
-                return;
-            Matrix[] transforms = new Matrix[m.Bones.Count];
-            m.CopyAbsoluteBoneTransformsTo(transforms);
-
-            foreach (ModelMesh mesh in m.Meshes)
+            if ((this.Game as GameXna).GameStateManager.State is StartLevelState)
             {
-                foreach (BasicEffect be in mesh.Effects)
+                Model m = this.Model;
+                Matrix world = this.World;
+
+                if (m == null)
+                    return;
+                Matrix[] transforms = new Matrix[m.Bones.Count];
+                m.CopyAbsoluteBoneTransformsTo(transforms);
+
+                foreach (ModelMesh mesh in m.Meshes)
                 {
-                    be.EnableDefaultLighting();
-                    be.Projection = camera.Projection;
-                    be.View = camera.View;
-                    be.World = world * mesh.ParentBone.Transform;
+                    foreach (BasicEffect be in mesh.Effects)
+                    {
+                        be.EnableDefaultLighting();
+                        be.Projection = camera.Projection;
+                        be.View = camera.View;
+                        be.World = world * mesh.ParentBone.Transform;
+                    }
+                    mesh.Draw();
                 }
-                mesh.Draw();
             }
         }
 

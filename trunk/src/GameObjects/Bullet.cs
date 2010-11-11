@@ -31,8 +31,6 @@ namespace GameXna
         {
             if (this.State != BulletState.Prepared && justFired)
             {
-                //Matrix rotation = Matrix.CreateRotationX(this.TargetDirection.X) * Matrix.CreateRotationY(this.TargetDirection.Y);
-                //this.World = rotation * this.World;
                 justFired = false;
             }
 

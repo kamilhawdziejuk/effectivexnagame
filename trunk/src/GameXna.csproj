@@ -85,6 +85,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIMotion.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="Collisions\ICollisionDetector.cs" />
     <Compile Include="Collisions\SphereCollisionDetector.cs" />
@@ -94,6 +95,15 @@
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjectsManager.cs" />
     <Compile Include="GameObjects\GameVehicle.cs" />
+    <Compile Include="GameStates\BaseGameState.cs" />
+    <Compile Include="GameStates\FadingState.cs" />
+    <Compile Include="GameStates\GameStateInterfaces.cs" />
+    <Compile Include="GameStates\PlayingState.cs" />
+    <Compile Include="GameStates\StartLevelState.cs" />
+    <Compile Include="GameStates\StartMenuState.cs" />
+    <Compile Include="GameStates\TitleIntroState.cs" />
+    <Compile Include="GameStates\WonGameState.cs" />
+    <Compile Include="IAI.cs" />
     <Compile Include="Primitives3D\GeometricPrimitive.cs" />
     <Compile Include="Primitives3D\SpherePrimitive.cs" />
     <Compile Include="Primitives3D\VertexPositionNormal.cs" />

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using XELibrary;
+using GameXna.GameStates;
 
 namespace GameXna.GameObjects
 {
@@ -24,14 +25,17 @@ namespace GameXna.GameObjects
 
         public GameVehicle(Game _game, Model _model, Matrix _world, string _name) : base(_game, _model, _world, _name)
         {
-            for (int i = 0; i < 100; ++i)
+            if ((this.Game as GameXna).GameStateManager.State is StartLevelState)
             {
-                var bulletWorld = Matrix.CreateScale(0.0005f) *Matrix.CreateTranslation(new Vector3(0.5f, 0.5f, 0.5f));
-                var bullet = new Bullet(_game, null, bulletWorld, "bullet" + i.ToString());
-                bullet.Position = this.Position;
-                this.bullets.Add(bullet);
+                for (int i = 0; i < 100; ++i)
+                {
+                    var bulletWorld = Matrix.CreateScale(0.0005f) * Matrix.CreateTranslation(new Vector3(0.5f, 0.5f, 0.5f));
+                    var bullet = new Bullet(_game, null, bulletWorld, "bullet" + i.ToString());
+                    bullet.Position = this.Position;
+                    this.bullets.Add(bullet);
+                }
+                this.firstPersonCamera = _game.Components[2] as FirstPersonCamera;
             }
-            this.firstPersonCamera = _game.Components[2] as FirstPersonCamera;
         }
 
         /// <summary>

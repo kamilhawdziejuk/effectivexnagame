@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using XELibrary;
 using Primitives3D;
 using GameXna.GameObjects;
+using GameXna.GameStates;
 
 namespace GameXna
 {
@@ -57,6 +58,7 @@ namespace GameXna
         private SpriteBatch spriteBatch;
         private Texture2D texture;
         private Texture2D textureCenter;
+        public Texture2D TextureIntro;
         private Matrix heliWorld;
         private float rot = 200f;
         private Matrix choopRotation;
@@ -64,6 +66,30 @@ namespace GameXna
         private Skybox skybox;
         Model skyboxModel;
         Texture2D[] skyboxTextures;
+        public SpriteFont Font;
+
+
+        //private InputHandler input;
+        //private Camera camera;
+        public GameStateManager GameStateManager;
+        public SpriteBatch SpriteBatch
+        {
+            get
+            {
+                return this.spriteBatch;
+            }
+        }
+        public ITitleIntroState TitleIntroState;
+        public IStartMenuState StartMenuState;
+        public IOptionsMenuState OptionsMenuState;
+        public IPlayingState PlayingState;
+        public IStartLevelState StartLevelState;
+        public ILostGameState LostGameState;
+        public IWonGameState WonGameState;
+        public IFadingState FadingState;
+        public IPausedState PausedState;
+        public IYesNoDialogState YesNoDialogState;
+
 
 
        /* SkinnedSphere[] skinnedSpheres;
@@ -119,7 +145,20 @@ namespace GameXna
             Components.Add(fps);
 //#endif
 
+            GameStateManager = new GameStateManager(this);
+            Components.Add(GameStateManager);
 
+            TitleIntroState = new TitleIntroState(this);
+            StartMenuState = new StartMenuState(this);
+            //OptionsMenuState = new OptionsMenuState(this);
+            PlayingState = new PlayingState(this);
+            StartLevelState = new StartLevelState(this);
+            FadingState = new FadingState(this);
+            //LostGameState = new LostGameState(this);
+            //WonGameState = new WonGameState(this);
+            //PausedState = new PausedState(this);
+            //YesNoDialogState = new YesNoDialogState(this);
+            GameStateManager.ChangeState(TitleIntroState.Value);
         }
 
         #endregion
@@ -170,10 +209,13 @@ namespace GameXna
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            
 
             texture = Content.Load<Texture2D>("Textures\\wydmy");
             this.textureCenter = Content.Load<Texture2D>("Textures\\wydmy");
+            this.TextureIntro = Content.Load<Texture2D>("Textures\\intro");
 
+            this.Font = Content.Load<SpriteFont>("Fonts\\IntroFont");
             // TODO: Load any ResourceManagementMode.Automatic content
             var ford = objects.Get("car") as GameVehicle;
             if (ford != null)
@@ -196,6 +238,8 @@ namespace GameXna
             ford.Bullets.ForEach(a => a.Model = fireModel);
 
             this.skyboxModel = LoadModel("Skyboxes\\skybox", out this.skyboxTextures);
+
+            base.LoadContent();
         }
 
         
@@ -209,19 +253,16 @@ namespace GameXna
             device.RenderState.DepthBufferWriteEnable = false;
             Matrix[] skyboxTransforms = new Matrix[skyboxModel.Bones.Count];
             skyboxModel.CopyAbsoluteBoneTransformsTo(skyboxTransforms);
-            int i = 0;
+
             foreach (ModelMesh mesh in skyboxModel.Meshes)
             {
                 foreach (Effect currentEffect in mesh.Effects)
                 {
-
                     Matrix worldMatrix = skyboxTransforms[mesh.ParentBone.Index] *
-                          Matrix.CreateTranslation(29 * Vector3.UnitY);// *Matrix.CreateTranslation(xwingPosition);
-                        //currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
+                          Matrix.CreateTranslation(29 * Vector3.UnitY);
                     currentEffect.Parameters["World"].SetValue(worldMatrix);
                     currentEffect.Parameters["View"].SetValue(this.camera.View);
                     currentEffect.Parameters["Projection"].SetValue(this.camera.Projection);
-                   // currentEffect.Parameters["BasicTexture"].SetValue(skyboxTextures[i++ % 7]);
                 }
                 mesh.Draw();
             }
@@ -237,11 +278,6 @@ namespace GameXna
             foreach (ModelMesh mesh in newModel.Meshes)
                 foreach (BasicEffect currentEffect in mesh.Effects)
                     textures[i++] = currentEffect.Texture;
-
-            //foreach (ModelMesh mesh in newModel.Meshes)
-            //    foreach (ModelMeshPart meshPart in mesh.MeshParts)
-            //        meshPart.Effect = effect.Clone(graphics.GraphicsDevice);
-
             return newModel;
         }
 
@@ -295,58 +331,6 @@ namespace GameXna
                 }
             }
 
-            ////ISROT = Identity, Scale, Rotation, Orbit, Translation
-            //GameObject obj = objects.ActiveObject;
-
-            //rot += 5.1f;
-
-            //obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
-            //Vector3 lastPosition = obj.Position;
-            //Matrix yaw = Matrix.Identity;
-
-            //if (this.camera.lastCameraYaw != this.camera.cameraYaw)
-            //{
-            //    obj.Rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
-            //    yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
-            //        Matrix.CreateRotationY(MathHelper.ToRadians(obj.Rotation)) *
-            //        Matrix.CreateTranslation(this.camera.cameraPosition);
-            //    total += obj.Rotation;
-            //    obj.World *= yaw;
-            //}
-
-            //if (objects.Get("heli") == objects.ActiveObject)
-            //{
-            //    //rotating the choop, with a correction include
-            //    Vector3 move = objects.ActiveObject.Position + -0.091f * new Vector3((float)Math.Sin(MathHelper.ToRadians(total)), 0, (float)Math.Cos(MathHelper.ToRadians(total)));
-            //    this.choopBone.Transform =
-            //        Matrix.CreateTranslation(-move) *
-            //         Matrix.CreateRotationY(rot) *
-            //        Matrix.CreateTranslation(move);
-            //}
-            //this.choopBone2.Transform = this.choopBone.Transform;
-            ////sound
-            //if (this.camera.lastCameraPosition != this.camera.cameraPosition)
-            //{
-            //    if (objects.Get("heli") == objects.ActiveObject)
-            //    {
-            //        sound.Play("helis");
-            //    }
-            //    else
-            //    {
-            //        sound.Play("car");
-            //    }
-            //}
-
-            //Vector3 fireDirection = new Vector3(0, 0, -0.1f);
-            //if (this.input.MouseState.LeftButton == ButtonState.Pressed)
-            //{
-            //    GameObject fire = objects.Get("fire");
-            //    if (fire != null)
-            //    {
-            //        fire.Position += fireDirection;
-            //    }
-            //}
-
 
             // TODO: Add your update logic here
             base.Update(gameTime);
@@ -372,101 +356,83 @@ namespace GameXna
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            //this.SpriteBatch.Begin();
+
             graphics.GraphicsDevice.RenderState.CullMode = CullMode.None;
             GraphicsDevice.Clear(Color.DimGray);
 
-            graphics.GraphicsDevice.VertexDeclaration = new
-                    VertexDeclaration(graphics.GraphicsDevice,
-                    VertexPositionNormalTexture.VertexElements);
-
-            //wall1
-            BasicEffect effectRectangleRight = new BasicEffect(graphics.GraphicsDevice, null);
-            this.InitializeEffect(effectRectangleRight);
-            //wall2
-            BasicEffect effectRectangleLeft = new BasicEffect(graphics.GraphicsDevice, null);
-            this.InitializeEffect(effectRectangleLeft);
-            //wall_center
-            BasicEffect effectRectangleCenter = new BasicEffect(graphics.GraphicsDevice, null);
-            this.InitializeEffect(effectRectangleCenter);
-            effectRectangleCenter.Texture = this.textureCenter;
-
-            this.effects.Clear();
-            //this.effects.Add(effectRectangleRight, this.rectangleRight);
-         //   this.effects.Add(effectRectangleLeft, this.rectangleLeft);
-          //  this.effects.Add(effectRectangleCenter, this.rectangleCenter);
-
-            foreach (KeyValuePair<BasicEffect, Figures.VerticesIndicesFigure> kvp in this.effects)
+            if (this.GameStateManager.State is StartLevelState)
             {
-                BasicEffect effect = kvp.Key;
-                effect.Begin();
-                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                graphics.GraphicsDevice.VertexDeclaration = new
+                VertexDeclaration(graphics.GraphicsDevice,
+                VertexPositionNormalTexture.VertexElements);
+                graphics.GraphicsDevice.RenderState.DepthBufferEnable = true;
+                graphics.GraphicsDevice.RenderState.AlphaBlendEnable = false;
+                graphics.GraphicsDevice.RenderState.AlphaTestEnable = false;
+
+               // GraphicsDevice.SamplerStates[0].AddressU = TextureAddressMode.Wrap;
+               // GraphicsDevice.SamplerStates[0].AddressV = TextureAddressMode.Wrap;
+
+
+                ////ISROT = Identity, Scale, Rotation, Orbit, Translation
+                GameObject obj = objects.ActiveObject;
+
+                rot += 5.1f;
+
+                obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
+                Vector3 lastPosition = obj.Position;
+                Matrix yaw = Matrix.Identity;
+                Matrix pitch = Matrix.Identity;
+                Vector3 forward = obj.World0.Forward;
+                if (this.camera.lastCameraYaw != this.camera.cameraYaw)
                 {
-                    pass.Begin();
-                    kvp.Value.Draw(graphics.GraphicsDevice);
-                    pass.End();
+                    float rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
+                    yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
+                        Matrix.CreateRotationY(MathHelper.ToRadians(rotation)) *
+                        Matrix.CreateTranslation(this.camera.cameraPosition);
+                    total += obj.Rotation;
+                    obj.Rotation += rotation;
+                    obj.World *= yaw;
+                    obj.World0 *= yaw;
                 }
-                effect.End();
-            }
-
-            //ISROT = Identity, Scale, Rotation, Orbit, Translation
-            GameObject obj = objects.ActiveObject;
-
-            rot += 5.1f;
-
-            obj.Position = this.camera.cameraPosition + new Vector3(-0.5f, -0.1f, -1); //ustawiam aktywny wehiku³ w danym miejscu (tak, aby by³ widoczny z widoku kamery)
-            Vector3 lastPosition = obj.Position;
-            Matrix yaw = Matrix.Identity;
-            Matrix pitch = Matrix.Identity;
-            Vector3 forward = obj.World0.Forward;
-            if (this.camera.lastCameraYaw != this.camera.cameraYaw)
-            {
-                float rotation = this.camera.cameraYaw - this.camera.lastCameraYaw;
-                yaw = Matrix.CreateTranslation(-this.camera.cameraPosition) *
-                    Matrix.CreateRotationY(MathHelper.ToRadians(rotation)) *
-                    Matrix.CreateTranslation(this.camera.cameraPosition);
-                total += obj.Rotation;
-                obj.Rotation += rotation;
-                obj.World *= yaw;
-                obj.World0 *= yaw;
-            }
-            if (objects.Get("heli") == objects.ActiveObject)
-            {
-                //rotating the choop, with a correction include
-                float alfa = 360 - objects.ActiveObject.Rotation;
-                Vector3 poprawka = 0.11f * new Vector3((float)Math.Sin(MathHelper.ToRadians(alfa)), 0, -(float)Math.Cos(MathHelper.ToRadians(alfa)));
-                Vector3 move = objects.ActiveObject.Position2 + poprawka;
-                
-                this.choopBone.Transform =
-                    Matrix.CreateTranslation(-move) *
-                     Matrix.CreateRotationY(rot) *
-                    Matrix.CreateTranslation(move);
-               
-            }
-            this.choopBone2.Transform = this.choopBone.Transform;
-            //sound
-            this.sound.Update(gameTime);
-            if (this.camera.lastCameraPosition != this.camera.cameraPosition)
-            {
                 if (objects.Get("heli") == objects.ActiveObject)
                 {
-                    sound.Play("helis");
-                }
-                else
-                {
-                    sound.Play("car");
-                }
-            }
-            
-            //this.Window.Title = "Position= " + objects.ActiveObject.Position + "  Position2=" + objects.ActiveObject.Position2 + " X=" + X + "  Z=" + Z + "  Total=" + (360-objects.ActiveObject.Rotation);// this.choopBone.Transform.Translation;
-            this.Window.Title = "Arms counter=" + (objects.ActiveObject as GameVehicle).Bullets.FindAll(a => a.State == BulletState.Prepared).Count;
-            this.Window.Title += "          FPS:" + this.fps.ToString();
-            
-            objects.Draw(gameTime);
-            
-            this.DrawSkybox();
-            //this.skybox.Draw(camera.View, camera.Projection, yaw);
+                    //rotating the choop, with a correction include
+                    float alfa = 360 - objects.ActiveObject.Rotation;
+                    Vector3 poprawka = 0.11f * new Vector3((float)Math.Sin(MathHelper.ToRadians(alfa)), 0, -(float)Math.Cos(MathHelper.ToRadians(alfa)));
+                    Vector3 move = objects.ActiveObject.Position2 + poprawka;
 
+                    this.choopBone.Transform =
+                        Matrix.CreateTranslation(-move) *
+                         Matrix.CreateRotationY(rot) *
+                        Matrix.CreateTranslation(move);
+
+                }
+                this.choopBone2.Transform = this.choopBone.Transform;
+                //sound
+                this.sound.Update(gameTime);
+                if (this.camera.lastCameraPosition != this.camera.cameraPosition)
+                {
+                    if (objects.Get("heli") == objects.ActiveObject)
+                    {
+                        sound.Play("helis");
+                    }
+                    else
+                    {
+                        sound.Play("car");
+                    }
+                }
+
+                //this.Window.Title = "Position= " + objects.ActiveObject.Position + "  Position2=" + objects.ActiveObject.Position2 + " X=" + X + "  Z=" + Z + "  Total=" + (360-objects.ActiveObject.Rotation);// this.choopBone.Transform.Translation;
+                this.Window.Title = "Arms counter=" + (objects.ActiveObject as GameVehicle).Bullets.FindAll(a => a.State == BulletState.Prepared).Count;
+                this.Window.Title += "          FPS:" + this.fps.ToString();
+
+                objects.Draw(gameTime);
+                this.DrawSkybox();
+            }
             base.Draw(gameTime);
+
+           // this.SpriteBatch.End();
         }
     }
 }

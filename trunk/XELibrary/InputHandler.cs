@@ -38,7 +38,7 @@ namespace XELibrary
             keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
-                Game.Exit();
+                //Game.Exit();
             }
 #if !XBOX360
             prevMouseState = mouseState;
@@ -64,6 +64,18 @@ namespace XELibrary
         public MouseState PreviousMouseState
         {
             get { return (prevMouseState); }
+        }
+
+        public bool WasPressed(int playerIndex, Keys keys)
+        {
+            foreach (Keys k in this.KeyboardState.GetPressedKeys())
+            {
+                if (keys == k)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 #endif
         #endregion
