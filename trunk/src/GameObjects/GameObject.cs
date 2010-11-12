@@ -41,6 +41,14 @@ namespace GameXna
 
         #endregion
 
+        public GameXna OurGame
+        {
+            get
+            {
+                return this.Game as GameXna;
+            }
+        }
+
         public string Name
         {
             get

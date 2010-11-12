@@ -85,7 +85,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AIMotion.cs" />
+    <Compile Include="GameObjects\AIGameVehicule.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="Collisions\ICollisionDetector.cs" />
     <Compile Include="Collisions\SphereCollisionDetector.cs" />

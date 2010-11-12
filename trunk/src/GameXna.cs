@@ -57,7 +57,7 @@ namespace GameXna
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Texture2D texture;
-        private Texture2D textureCenter;
+       // private Texture2D textureCenter;
         public Texture2D TextureIntro;
         private Matrix heliWorld;
         private float rot = 200f;
@@ -79,6 +79,16 @@ namespace GameXna
                 return this.spriteBatch;
             }
         }
+
+        public GameObjectsManager ObjectsManager
+        {
+            get
+            {
+                return this.objects;
+            }
+        }
+
+       
         public ITitleIntroState TitleIntroState;
         public IStartMenuState StartMenuState;
         public IOptionsMenuState OptionsMenuState;
@@ -155,13 +165,19 @@ namespace GameXna
             StartLevelState = new StartLevelState(this);
             FadingState = new FadingState(this);
             //LostGameState = new LostGameState(this);
-            //WonGameState = new WonGameState(this);
+            WonGameState = new WonGameState(this);
             //PausedState = new PausedState(this);
             //YesNoDialogState = new YesNoDialogState(this);
             GameStateManager.ChangeState(TitleIntroState.Value);
         }
 
         #endregion
+
+        public void ReStart()
+        {
+            this.objects.GameObjects.Clear();
+            this.Initialize();
+        }
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -171,11 +187,11 @@ namespace GameXna
         /// </summary>
         protected override void Initialize()
         {
-            this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-2, 2.8f, 0), new Vector3(2, -0.8f, 0), new Vector3(-2, -0.8f, 0));
-            this.rectangleRight = new global::GameXna.Figures.Rectangle(new Vector3(2.7f, -0.8f, -2), new Vector3(3.0f, 2.8f, 2));
-            this.rectangleLeft = new global::GameXna.Figures.Rectangle(new Vector3(-3.0f, -0.8f, 2), new Vector3(-2.7f, 2.8f, -2));
-            this.rectangleCenter = new global::GameXna.Figures.Rectangle(new Vector3(-2.7f, -0.8f, -2), new Vector3(2.7f, 2.8f, -2));
-
+           // this.triangle = new global::GameXna.Figures.Triangle(new Vector3(-2, 2.8f, 0), new Vector3(2, -0.8f, 0), new Vector3(-2, -0.8f, 0));
+           // this.rectangleRight = new global::GameXna.Figures.Rectangle(new Vector3(2.7f, -0.8f, -2), new Vector3(3.0f, 2.8f, 2));
+          //  this.rectangleLeft = new global::GameXna.Figures.Rectangle(new Vector3(-3.0f, -0.8f, 2), new Vector3(-2.7f, 2.8f, -2));
+           // this.rectangleCenter = new global::GameXna.Figures.Rectangle(new Vector3(-2.7f, -0.8f, -2), new Vector3(2.7f, 2.8f, -2));
+ 
             Matrix carWorld = Matrix.CreateScale(0.0015f) * 
                 Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) *
                 Matrix.CreateRotationY(MathHelper.ToRadians(-90.0f)) *
@@ -188,8 +204,10 @@ namespace GameXna
                 Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)) *
                 Matrix.CreateTranslation(new Vector3(0.5f, height, 0));
 
-            var car = new GameVehicle(this,null, carWorld, "car");
-            var heli = new GameVehicle(this, null, heliWorld, "heli");
+            var car = new AIGameVehicule(this,null, carWorld, "car");
+
+            var heli = new AIGameVehicule(this, null, heliWorld, "heli");
+            heli.AIActivated = false;
 
             car.Scale = 0.0015f;
             heli.Scale = 0.0025f;
@@ -210,10 +228,9 @@ namespace GameXna
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
-
-            texture = Content.Load<Texture2D>("Textures\\wydmy");
-            this.textureCenter = Content.Load<Texture2D>("Textures\\wydmy");
-            this.TextureIntro = Content.Load<Texture2D>("Textures\\intro");
+            //texture = Content.Load<Texture2D>("Textures\\wydmy");
+           // this.textureCenter = Content.Load<Texture2D>("Textures\\wydmy");
+            this.TextureIntro = Content.Load<Texture2D>("Textures\\intro3");
 
             this.Font = Content.Load<SpriteFont>("Fonts\\IntroFont");
             // TODO: Load any ResourceManagementMode.Automatic content
@@ -424,8 +441,8 @@ namespace GameXna
                 }
 
                 //this.Window.Title = "Position= " + objects.ActiveObject.Position + "  Position2=" + objects.ActiveObject.Position2 + " X=" + X + "  Z=" + Z + "  Total=" + (360-objects.ActiveObject.Rotation);// this.choopBone.Transform.Translation;
-                this.Window.Title = "Arms counter=" + (objects.ActiveObject as GameVehicle).Bullets.FindAll(a => a.State == BulletState.Prepared).Count;
-                this.Window.Title += "          FPS:" + this.fps.ToString();
+                //this.Window.Title = "Arms counter=" + (objects.ActiveObject as GameVehicle).Bullets.FindAll(a => a.State == BulletState.Prepared).Count;
+                this.Window.Title = "Gra \"WEHIKULOWE STARCIE\"          FPS:" + this.fps.ToString();
 
                 objects.Draw(gameTime);
                 this.DrawSkybox();
