@@ -11,10 +11,12 @@ D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Conten
 D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox_left.xnb
 D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox_right.xnb
 D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox_top.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Textures\intro.xnb
 D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Ford\ford.xnb
 D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\helnwsm1.xnb
 D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Skyboxes\skybox.xnb
 D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Pociski\Zepplin.xnb
+D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Fonts\IntroFont.xnb
 D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHBLACK_0.xnb
 D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHWHITE_0.xnb
 D:\programming\xna_programming\effectivexnagame\trunk\src\bin\x86\Release\Content\Models\Helikopter\NHLHULL1_0.xnb
