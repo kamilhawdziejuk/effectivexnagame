@@ -56,10 +56,18 @@ namespace XELibrary
 
         private void AddState(GameState state)
         {
-            states.Push(state);
-            Game.Components.Add(state);
-            //Register the event for this state
-            OnStateChange += state.StateChanged;
+            
+            if (!this.ContainsState(state))
+            {
+                Game.Components.Add(state);
+            }
+            if (!states.Contains(state))
+            {
+                states.Push(state);
+            }
+                //Register the event for this state
+                OnStateChange += state.StateChanged;
+            
         }
 
         public void ChangeState(GameState newState)

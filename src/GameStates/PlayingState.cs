@@ -66,10 +66,5 @@ namespace GameXna
             }
         }
 
-        protected override void LoadGraphicsContent(bool loadAllContent)
-        {
-           // font = Content.Load<SpriteFont>(@”Content\Fonts\Arial”);
-        }
-
     }
 }

@@ -25,7 +25,7 @@ namespace GameXna.GameObjects
 
         public GameVehicle(Game _game, Model _model, Matrix _world, string _name) : base(_game, _model, _world, _name)
         {
-            if ((this.Game as GameXna).GameStateManager.State is StartLevelState)
+            //if ((this.Game as GameXna).GameStateManager.State is StartLevelState)
             {
                 for (int i = 0; i < 100; ++i)
                 {
@@ -55,27 +55,30 @@ namespace GameXna.GameObjects
             }
 
             //odpalam nowy pocisk, po wciśnięciu lewego przycisku myszy
-            if (this.input.MouseState.LeftButton == ButtonState.Pressed || this.input.KeyboardState.IsKeyDown(Keys.Space))
+
+            if (this.OurGame.ObjectsManager.ActiveObject == this)
             {
-                SoundManager sound = (this.Game.Components[2] as SoundManager);
-                sound.StopAll();
-                sound.Play("fire");
-
-                Vector2 targetOnScreen = new Vector2((float)this.input.MouseState.X - this.Game.GraphicsDevice.ScissorRectangle.Center.X,
-                    this.Game.GraphicsDevice.ScissorRectangle.Center.Y - (float)this.input.MouseState.Y);
-                Vector3 clickedTarget = new Vector3(this.Scale * targetOnScreen.X, this.Scale * targetOnScreen.Y, 1.9f);
-
-                var fired = this.bullets.Find(a => a.State == BulletState.Prepared);
-                if (fired != null)
+                if (this.input.MouseState.LeftButton == ButtonState.Pressed || this.input.KeyboardState.IsKeyDown(Keys.Space))
                 {
-                    fired.State = BulletState.Running;
-                    fired.Position2 = this.Position2;
-                    fired.TargetDirection = clickedTarget.Z * this.World0.Forward +clickedTarget.X * this.World0.Right + clickedTarget.Y * this.World0.Up;
-                    fired.TargetDirection *= 0.05f;
-                    fired.World.Forward = this.Scale * fired.TargetDirection;
+                    SoundManager sound = (this.Game.Components[2] as SoundManager);
+                    sound.StopAll();
+                    sound.Play("fire");
+
+                    Vector2 targetOnScreen = new Vector2((float)this.input.MouseState.X - this.Game.GraphicsDevice.ScissorRectangle.Center.X,
+                        this.Game.GraphicsDevice.ScissorRectangle.Center.Y - (float)this.input.MouseState.Y);
+                    Vector3 clickedTarget = new Vector3(this.Scale * targetOnScreen.X, this.Scale * targetOnScreen.Y, 1.9f);
+
+                    var fired = this.bullets.Find(a => a.State == BulletState.Prepared);
+                    if (fired != null)
+                    {
+                        fired.State = BulletState.Running;
+                        fired.Position2 = this.Position2;
+                        fired.TargetDirection = clickedTarget.Z * this.World0.Forward + clickedTarget.X * this.World0.Right + clickedTarget.Y * this.World0.Up;
+                        fired.TargetDirection *= 0.05f;
+                        fired.World.Forward = this.Scale * fired.TargetDirection;
+                    }
                 }
             }
-
             foreach (Bullet fire in this.bullets.FindAll(a => a.State == BulletState.Running))
             {
                 fire.Update(gameTime);

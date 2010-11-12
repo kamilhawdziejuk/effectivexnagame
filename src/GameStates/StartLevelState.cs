@@ -41,7 +41,7 @@ namespace GameXna.GameStates
         public override void StateChanged(object sender, EventArgs e)
         {
             base.StateChanged(sender, e);
-            bool startingLevel = true;
+            bool startingLevel = false;
             if (GameManager.State == this.Value)
             {
                // if (demoMode && !displayedDemoDialog)

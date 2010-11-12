@@ -38,19 +38,22 @@ namespace GameXna
         {
             if ((this.Game as GameXna).GameStateManager.State is TitleIntroState)
             {
+                string gameDescription = "\"WEHIKULOWE STARCIE\", to gra komputerowa, odzwierciedlajaca \n " +
+                    "pojedynek wehikulow na arenie. Sterujesz jednym z dwoch \n dostepnych wehikulow: " +
+                    "helikopterem badz samochodem. \n Celem gry jest trafienie przeciwnika, nie dajac sie \n jednoczesnie samemu zestrzelic...";
+
+
                 Vector2 pos = new Vector2(TitleSafeArea.Left, TitleSafeArea.Top);
-                SpriteBatch sprite = new SpriteBatch(this.Game.GraphicsDevice);
-                sprite.Begin();
-                sprite.Draw(OurGame.TextureIntro, pos, Color.White);
+                OurGame.SpriteBatch.Begin();
+                OurGame.SpriteBatch.Draw(OurGame.TextureIntro, pos, Color.White);
+                OurGame.SpriteBatch.DrawString(OurGame.Font, "WEHIKULOWE STARCIE - wersja alfa (2010)", pos + new Vector2(100,10), Color.WhiteSmoke);
+                OurGame.SpriteBatch.DrawString(OurGame.Font, "autor: Kamil Hawdziejuk", pos + new Vector2(100, 30), Color.WhiteSmoke);
 
-                sprite.DrawString(OurGame.Font, "GameXNA - wersja alfa (2010)", pos, Color.Yellow);
 
-                sprite.DrawString(OurGame.Font, "autor: Kamil Hawdziejuk", pos + new Vector2(0, 20), Color.Silver);
-
-                 sprite.DrawString(OurGame.Font, "wcisnij S...", pos + new Vector2(0, 100), Color.Silver);
-
-                sprite.End();
-
+                OurGame.SpriteBatch.DrawString(OurGame.Font, gameDescription, pos+new Vector2(100,100), Color.Silver);
+                
+                OurGame.SpriteBatch.DrawString(OurGame.Font, "Wcisnij \"S\", aby przejsc do opcji.", pos + new Vector2(100, 400), Color.Silver);
+                OurGame.SpriteBatch.End();
                 base.Draw(gameTime);
             }
         }

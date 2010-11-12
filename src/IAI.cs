@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameXna
 {
-    public interface IAI
+    public interface IAIGameObject
     {
         bool Interact();
     }

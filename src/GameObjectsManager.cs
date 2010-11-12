@@ -86,6 +86,15 @@ namespace GameXna
             base.Draw(gameTime);
         }
 
+
+        public GameXna OurGame
+        {
+            get
+            {
+                return this.Game as GameXna;
+            }
+        }
+
         /// <summary>
         /// Aktualizuje stany obiektów, sprawdza zależności między nimi
         /// </summary>
@@ -94,11 +103,9 @@ namespace GameXna
         {
             if ((this.Game as GameXna).GameStateManager.State is StartLevelState)
             {
-
-
                 foreach (GameObject obj in this.gameObjects)
                 {
-                    if (obj == this.activeObject)
+                    //if (obj == this.activeObject)
                     {
                         obj.Update(gameTime);
                     }
@@ -121,6 +128,9 @@ namespace GameXna
                                 //i uruchom "dźwięk trafienia"
                                 sound.StopAll();
                                 sound.Play("explosion");
+
+                                this.OurGame.WonGameState.Winner = vehicule;
+                                this.OurGame.GameStateManager.PushState(this.OurGame.WonGameState.Value);
                             }
                         }
                     }

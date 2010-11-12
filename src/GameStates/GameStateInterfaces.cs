@@ -13,7 +13,14 @@ namespace GameXna
     public interface IPlayingState : IGameState { }
     public interface IPausedState : IGameState { }
     public interface ILostGameState : IGameState { }
-    public interface IWonGameState : IGameState { }
+    public interface IWonGameState : IGameState
+    {
+        GameObject Winner
+        {
+            get;
+            set;
+        }
+    }
     public interface IStartLevelState : IGameState { }
     public interface IYesNoDialogState : IGameState { }
 
